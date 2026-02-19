@@ -1,0 +1,109 @@
+<div class="mat-elevation-z8">
+  <mat-card>
+    <h5>Códigos Equivalentes Entre Productos NAF y DMC</h5>
+    <div class="table-responsive">
+      <form [formGroup]="form" (ngSubmit)="search()">
+        <div style="display: flex;">
+          <mat-form-field>
+            <mat-label>Empresa</mat-label>
+            <mat-select formControlName="companyId">
+              <mat-option *ngFor="let item of companies" [value]="item.id">{{item.name}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-form-field class="item">
+            <mat-label>Código Producto DMC</mat-label>
+            <input matInput formControlName="code">
+          </mat-form-field>
+          <mat-form-field class="item">
+            <mat-label>Código Producto NAF</mat-label>
+            <input matInput formControlName="extCode">
+          </mat-form-field>
+          <mat-form-field style="margin-left: 10px">
+            <mat-label>Estado</mat-label>
+            <mat-select formControlName="status">
+              <mat-option *ngFor="let item of status" [value]="item.id">{{item.name}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+          <button mat-mini-fab color="primary" type="submit" aria-label="Buscar" style="margin-left: 10px">
+            <mat-icon>search</mat-icon>
+          </button>
+          <span class="spacer"></span>
+          <button mat-raised-button color="primary" (click)="showForm({})" style="margin-left: 10px">
+            <mat-icon>control_point</mat-icon>
+            Nuevo</button>
+        </div>
+      </form>
+      <div style="margin-top: 10px;margin-bottom: 10px;">
+        <button [disabled]="!isAnySelected()" mat-raised-button color="primary" (click)="enableSelected()">Habilitar
+          Seleccionados</button>
+        <button [disabled]="!isAnySelected()" mat-raised-button (click)="disableSelected()"
+          style="margin-left: 10px;">Deshabilitar
+          Seleccionados</button>
+        <button [disabled]="!isAnySelected()" mat-raised-button color="warn" (click)="deleteSelected()"
+          style="margin-left: 10px;">Eliminar
+          Seleccionados</button>
+      </div>
+      <table mat-table [dataSource]="source">
+        <!-- Checkbox Column -->
+        <ng-container matColumnDef="select">
+          <th mat-header-cell *matHeaderCellDef>
+            <mat-checkbox (change)="$event ? masterToggle() : null" [checked]="selection.hasValue() && isAllSelected()"
+              [indeterminate]="selection.hasValue() && !isAllSelected()">
+            </mat-checkbox>
+          </th>
+          <td mat-cell *matCellDef="let row">
+            <mat-checkbox (click)="$event.stopPropagation()" (change)="$event ? selection.toggle(row) : null"
+              [checked]="selection.isSelected(row)">
+            </mat-checkbox>
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="companyId">
+          <th mat-header-cell *matHeaderCellDef> Empresa </th>
+          <td mat-cell *matCellDef="let element"> {{element.companyId}} </td>
+        </ng-container>
+        <ng-container matColumnDef="code">
+          <th mat-header-cell *matHeaderCellDef> Código Producto DMC </th>
+          <td mat-cell *matCellDef="let element"> {{element.code }} </td>
+        </ng-container>
+        <ng-container matColumnDef="extCode">
+          <th mat-header-cell *matHeaderCellDef> Código Producto NAF </th>
+          <td mat-cell *matCellDef="let element"> {{element.extCode }} </td>
+        </ng-container>
+        <ng-container matColumnDef="status">
+          <th mat-header-cell *matHeaderCellDef> Estado </th>
+          <td mat-cell *matCellDef="let element">
+            <button mat-button (click)="statusClick(element)" color="{{this.getStatusClass(element)}}">{{
+              this.getStatusName(element) }}</button>
+          </td>
+
+        </ng-container>
+        <ng-container matColumnDef="createDate">
+          <th mat-header-cell *matHeaderCellDef> Fecha de Creación </th>
+          <td mat-cell *matCellDef="let element"> {{element.editUtcDate | date:"dd/MM/yyyy HH:mm:ss":"-0400"}} </td>
+        </ng-container>
+        <ng-container matColumnDef="editDate">
+          <th mat-header-cell *matHeaderCellDef> Fecha de Edición </th>
+          <td mat-cell *matCellDef="let element"> {{element.editUtcDate | date:"dd/MM/yyyy HH:mm:ss":"-0400"}} </td>
+        </ng-container>
+        <ng-container matColumnDef="actions" stickyEnd>
+          <th mat-header-cell *matHeaderCellDef> &nbsp; </th>
+          <td mat-cell *matCellDef="let element">
+            <button matTooltip="Editar" mat-icon-button color="primary"
+              (click)="showForm(element)">
+              <mat-icon>edit</mat-icon>
+            </button>
+            <button matTooltip="Eliminar" mat-icon-button color="primary"
+              (click)="delete(element)">
+              <mat-icon>remove</mat-icon>
+            </button>
+          </td>
+        </ng-container>
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+      <mat-paginator [length]="source?.resultPage?.filtered" [pageSize]="initialSize"
+        [pageSizeOptions]="[10, 20, 30, 50, 100, 300, 500]">
+      </mat-paginator>
+    </div>
+  </mat-card>
+</div>

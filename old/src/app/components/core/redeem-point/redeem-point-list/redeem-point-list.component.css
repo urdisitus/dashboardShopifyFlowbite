@@ -1,0 +1,50 @@
+.mat-column-event {
+    min-width: 150px;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.mat-column-id {
+    min-width: 50px;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.mat-column-name {
+    min-width: 150px;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.mat-column-startDateD {
+    min-width: 200px;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.mat-column-endDateD {
+    min-width: 200px;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+
+.mat-column-factor {
+    min-width: 50px;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+table {
+    width: 100%;
+    table-layout: fixed;
+  }
+  
+  th, td {
+    overflow: hidden;
+    width: 200px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  
+  

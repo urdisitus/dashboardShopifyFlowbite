@@ -1,0 +1,121 @@
+<div class="mat-elevation-z8">
+  <mat-card>
+    <h5>Configuración de pago con puntos</h5>
+    <div class="table-responsive">
+      <form [formGroup]="form" (ngSubmit)="loadPage()">
+        <div style="display: flex;">
+          <mat-form-field class="item">
+            <mat-label>Criterio</mat-label>
+            <input matInput formControlName="criteria">
+          </mat-form-field>
+          <mat-form-field style="margin-left: 10px">
+            <mat-label>Fecha Inicio</mat-label>
+            <input matInput [matDatepicker]="startPicker" placeholder="Selecciona una fecha inicial"
+              formControlName="startDate">
+            <mat-datepicker-toggle matSuffix [for]="startPicker"></mat-datepicker-toggle>
+            <mat-datepicker #startPicker></mat-datepicker>
+          </mat-form-field>
+          <mat-form-field style="margin-left: 10px">
+            <mat-label>Fecha Fin</mat-label>
+            <input matInput [matDatepicker]="endPicker" placeholder="Selecciona una fecha final"
+              formControlName="endDate">
+            <mat-datepicker-toggle matSuffix [for]="endPicker"></mat-datepicker-toggle>
+            <mat-datepicker #endPicker></mat-datepicker>
+          </mat-form-field>
+          <mat-form-field style="margin-left: 10px">
+            <mat-label>Estado</mat-label>
+            <mat-select formControlName="status">
+              <mat-option *ngFor="let item of status" [value]="item.id">{{item.name}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+          <button mat-mini-fab color="primary" type="submit" aria-label="Buscar" style="margin-left: 10px">
+            <mat-icon>search</mat-icon>
+          </button>
+          <span class="spacer"></span>
+          <button mat-raised-button type="button" color="primary" (click)="showForm({})" style="margin-left: 10px">
+            <mat-icon>control_point</mat-icon>
+            Nuevo</button>
+        </div>
+      </form>
+
+      <mat-table [dataSource]="_dataSource" style="width:100%">
+
+        <!-- Position Column -->
+        <ng-container matColumnDef="id">
+          <th mat-header-cell *matHeaderCellDef> Código </th>
+          <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+        </ng-container>
+
+        <!-- Name Column -->
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef> Nombre </th>
+          <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+        </ng-container>
+
+        <!-- Name Column -->
+        <ng-container matColumnDef="type">
+          <th mat-header-cell *matHeaderCellDef> Tipo </th>
+          <td mat-cell *matCellDef="let element"> {{element.redeemPointTypeName}} </td>
+        </ng-container>
+
+        <!-- Name Column -->
+        <ng-container matColumnDef="group">
+          <th mat-header-cell *matHeaderCellDef> Grupo </th>
+          <td mat-cell *matCellDef="let element"> {{element.redeemPointGroupName}} </td>
+        </ng-container>
+
+        <!-- Weight Column -->
+        <ng-container matColumnDef="startDateD">
+          <th mat-header-cell *matHeaderCellDef>Fecha Inicio</th>
+          <td mat-cell *matCellDef="let element"> {{element.startDateD | date:'dd/MM/yyyy'}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="endDateD">
+          <th mat-header-cell *matHeaderCellDef>Fecha Fin</th>
+          <td mat-cell *matCellDef="let element"> {{element.endDateD | date:'dd/MM/yyyy'}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="factor">
+          <th mat-header-cell *matHeaderCellDef> Factor </th>
+          <td mat-cell *matCellDef="let element"> {{element.factor}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="value">
+          <th mat-header-cell *matHeaderCellDef> Valor </th>
+          <td mat-cell *matCellDef="let element"> {{element.value}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="minimalAmonunt">
+          <th mat-header-cell *matHeaderCellDef> Valor Mínimo </th>
+          <td mat-cell *matCellDef="let element"> {{element.minimalAmonunt}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="status">
+          <th mat-header-cell *matHeaderCellDef>Estado</th>
+          <td mat-cell *matCellDef="let element">
+            <button *ngIf="element.status == 1" mat-button (click)="disable(element)"
+              color="danger">Desabilitar</button>
+            <button *ngIf="element.status == 0" mat-button (click)="enable(element)" color="primary">Habilitar</button>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="event">
+          <th mat-header-cell *matHeaderCellDef></th>
+          <td mat-cell *matCellDef="let element">
+            <button matTooltip="Editar" mat-icon-button color="primary" (click)="showForm(element)">
+              <mat-icon>edit</mat-icon>
+            </button>
+            <button matTooltip="Eliminar" mat-icon-button color="primary" (click)="delete(element)">
+              <mat-icon>remove</mat-icon>
+            </button>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;" class="element-row"></tr>
+      </mat-table>
+      <mat-paginator [length]="_dataSource?.resultPage?.totalElements" [pageSize]="initialSize"
+        [pageSizeOptions]="[10, 20, 50, 100, 200, 500]"></mat-paginator>
+    </div>
+  </mat-card>
+</div>

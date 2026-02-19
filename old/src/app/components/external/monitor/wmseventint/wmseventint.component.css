@@ -1,0 +1,101 @@
+table {
+  width: 100%;
+}
+
+.mat-row {
+  vertical-align: baseline;
+}
+
+.margin-left {
+  margin-left: 10px;
+}
+
+.matFormField {
+  width: 100%;
+  margin-right: 10px;
+}
+
+.mat-column-event {
+  min-width: 50px;
+  text-align: center;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+.mat-column-codigo {
+  min-width: 50px;
+  text-align: center;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+.mat-column-tipo {
+  min-width: 50px;
+  text-align: left;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+.mat-column-idIntegrador {
+  min-width: 50px;
+  text-align: center;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+.mat-column-idShopifyBusiness {
+  min-width: 50px;
+  text-align: center;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+.mat-column-tipoEventCode {
+  min-width: 50px;
+  text-align: center;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+.mat-column-estado {
+  min-width: 50px;
+  text-align: center;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+.mat-column-errorCodeBusiness {
+  min-width: 100px;
+  text-align: left;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+.mat-column-dCreateDateUtcDate {
+  min-width: 200px;
+  text-align: center;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+.mat-column-dOrigenDate {
+  min-width: 200px;
+  text-align: center;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+.mat-column-dEnvioDate {
+  min-width: 200px;
+  text-align: center;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+.error {
+  background-color: #FFEBEE
+}
+
+.success {
+  background-color: #edffeb
+}

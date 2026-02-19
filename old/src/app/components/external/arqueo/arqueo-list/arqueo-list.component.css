@@ -1,0 +1,64 @@
+table {
+    width: 100%;
+}
+
+.mat-column-codigoTurno {
+    min-width: 150px;
+    padding-left: 5px;
+    padding-right: 5px;
+    text-align: center;
+}
+
+.mat-column-codigoArqueo {
+    min-width: 150px;
+    padding-left: 5px;
+    padding-right: 5px;
+    text-align: center;
+}
+
+.mat-column-sucursal {
+    min-width: 100px;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.mat-column-fecha {
+    min-width: 100px;
+    padding-left: 5px;
+    padding-right: 5px;
+    text-align: center;
+}
+
+.mat-column-usuario {
+    min-width: 150px;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.mat-column-montoApertura {
+    min-width: 100px;
+    padding-left: 5px;
+    padding-right: 5px;
+    text-align: right;
+}
+
+.mat-column-fechaCierre {
+    min-width: 100px;
+    padding-left: 5px;
+    padding-right: 5px;
+    text-align: center;
+}
+
+.mat-column-totalmontosistema {
+    min-width: 100px;
+    padding-left: 5px;
+    padding-right: 5px;
+    text-align: right;
+}
+
+.mat-column-totalmontobs {
+    min-width: 100px;
+    padding-left: 5px;
+    padding-right: 5px;
+    text-align: right;
+}

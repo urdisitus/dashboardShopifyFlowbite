@@ -1,0 +1,91 @@
+<form #reportModel="ngForm">
+
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-title">{{isNew? 'Nueva': 'Editar'}} notificación</h4>
+    <button type="button" class="close" aria-describedby="modal-title" (click)="dismissModal()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="row">
+      <div class="col-md-12">
+        <mat-form-field style="width: 100%;">
+          <input matInput maxlength="100" placeholder="Nombre" [(ngModel)]="param.name" type="text" #nombre="ngModel"
+            name="nombre" required>
+        </mat-form-field>
+        <mat-error *ngIf="!nombre.valid && nombre.touched">
+          Debe introducir un valor para nombre.
+        </mat-error>
+      </div>
+      <div class="col-md-12">
+        <mat-form-field style="width: 100%;">
+          <input matInput maxlength="100" placeholder="Titulo" [(ngModel)]="param.title" type="text" #titulo="ngModel"
+            name="titulo" required>
+        </mat-form-field>
+        <mat-error *ngIf="!titulo.valid && titulo.touched">
+          Debe introducir un valor para titulo.
+        </mat-error>
+      </div>
+      <div class="col-md-12">
+        <mat-form-field style="width: 93%;">
+          <input matInput maxlength="100" placeholder="Mensaje" [(ngModel)]="param.message" type="text"
+            #mensaje="ngModel" name="mensaje" required>
+        </mat-form-field>
+        <mat-icon matSuffix (click)="toggled = !toggled" [(emojiPickerIf)]="toggled" [emojiPickerDirection]="'top'"
+          (emojiPickerSelect)="handleSelection($event)">
+          sentiment_very_satisfied
+        </mat-icon>
+        <mat-error *ngIf="!mensaje.valid && mensaje.touched">
+          Debe introducir un valor para el Mensaje.
+        </mat-error>
+      </div>
+      <div class="col-md-12">
+        <mat-form-field style="width: 100%;">
+          <mat-label>Segmento</mat-label>
+          <mat-select id="segmentId" [(ngModel)]="param.segmentId" name="segmentId" required
+            (selectionChange)="changeSegment($event)">
+            <mat-option [value]="item.id" *ngFor="let item of segmentos">{{item.name}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div class="col-md-12">
+        <mat-form-field style="width: 100%;">
+          <mat-label>Tipo de contenido</mat-label>
+          <mat-select id="contentTypeId" [(ngModel)]="param.contentTypeId" name="contentTypeId" required
+            (selectionChange)="changeTipo($event)">
+            <mat-option [value]="item.id" *ngFor="let item of tipos">{{item.name}}</mat-option>
+          </mat-select>
+          <mat-hint align="end">{{contentDescription}}</mat-hint>
+          <mat-error>El Tipo de contenido es requerido</mat-error>
+
+        </mat-form-field>
+      </div>
+      <div *ngIf="param.contentTypeId != 'home'" class="col-md-12">
+        <mat-form-field style="width: 100%;">
+          <input matInput maxlength="100" placeholder="Contenido" [(ngModel)]="param.contentCode" type="text"
+            #contentValue="ngModel" name="contentValue" required>
+        </mat-form-field>
+        <mat-error *ngIf="!contentValue.valid && contentValue.touched">
+          Debe introducir un valor para el Contenido.
+        </mat-error>
+      </div>
+      <div class="col-md-12">
+        <mat-form-field style="width: 100%;">
+          <mat-label>Tipos de Sistema Operativo</mat-label>
+          <mat-select id="tmpOsTypes" [(ngModel)]="param.tmpOsTypes" name="tmpOsTypes" required
+            (selectionChange)="osType($event)">
+            <mat-option *ngFor="let item of osTypes" [value]="item.value">{{item.description}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
+
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-secondary" (click)="dismissModal()">Cancelar</button>
+    <button type="button" class="btn btn{{reportModel.form.valid==false? '-outline' : ''}}-primary pull-rigth"
+      [disabled]="!reportModel.form.valid" (click)="guardar()">Guardar</button>
+  </div>
+
+</form>

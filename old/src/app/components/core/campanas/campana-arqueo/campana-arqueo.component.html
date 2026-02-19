@@ -1,0 +1,61 @@
+<div class="container-fluid">
+
+    <div class="row">
+        <div class="col-md-12">
+            <span><b style="font-size: 30px;">Arqueo de stickers</b></span>
+        </div>
+
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-block">
+
+                    <ngb-alert [type]="typeAlert" *ngIf="message!=''" (close)="close()">{{ message }}</ngb-alert>
+
+                    <form #stikersModel="ngForm" (ngSubmit)="onSubmit(stikersModel)">
+
+                        <p>
+                            <mat-form-field>
+                                <mat-label>Fecha operacional</mat-label>
+                                <input matInput required [matDatepicker]="picker" #fecha="ngModel" name="fecha" placeholder="Selecciona una fecha" [(ngModel)]="fechaOperacional" (dateChange)="changeDate($event)">
+                                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                <mat-datepicker #picker></mat-datepicker>
+                                <mat-error *ngIf="!fecha.valid && fecha.touched">
+                                    La fecha es requerida.
+                                </mat-error>
+                            </mat-form-field>
+                        </p>
+                        <p>
+                            <mat-form-field>
+                                <mat-label>Campaña</mat-label>
+                                <mat-select [(ngModel)]="idCampana" name="campana" required #CampanaSelect (selectionChange)="changeCampana($event)">
+                                    <mat-option>Ninguno</mat-option>
+                                    <mat-option [value]="item.id" *ngFor="let item of campanias">{{item.nombre}}</mat-option>
+                                </mat-select>
+                                <mat-error>La campaña es requerida</mat-error>
+                            </mat-form-field>
+                        </p>
+                        <p>
+                            <mat-form-field *ngIf="idPreaperturaSelect != undefined">
+                                <input matInput placeholder="Cant. sticker" type="number" #cantidad="ngModel" name="cantidad" [(ngModel)]="cantStickerDevueltos" required pattern="[0-9]*" min="0" />
+                                <mat-error *ngIf="!cantidad.valid && cantidad.touched">
+                                    Debe introducir una cantidad para sticker.
+                                </mat-error>
+                            </mat-form-field>
+                        </p>
+
+                        <p *ngFor="let canje of canjeArqueo">
+                            <mat-form-field *ngIf="idPreaperturaSelect != undefined">
+                                <input matInput placeholder="Cant. {{canje.descripcion}}" id="{{'cantidad_' + canje.canjeModalidadId}}" name="{{'cantidad_' + canje.canjeModalidadId}}" [(ngModel)]="canje.cantCartillasCierreCajero" type="number" required pattern="[0-9]*" min="0" />
+                                <mat-error *ngIf="!stikersModel.controls['cantidad_' + canje.canjeModalidadId].valid && stikersModel.controls['cantidad_' + canje.canjeModalidadId].touched">
+                                    Debe introducir una cantidad para {{canje.descripcion}}.
+                                </mat-error>
+                            </mat-form-field>
+                        </p>
+
+                        <input type="submit" *ngIf="idPreaperturaSelect != undefined" mat-button value="Guardar" class="btn btn-{{stikersModel.form.valid==false? 'danger' : 'success'}}" [disabled]="!stikersModel.form.valid" />
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

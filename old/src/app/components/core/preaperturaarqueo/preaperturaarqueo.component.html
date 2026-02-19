@@ -1,0 +1,165 @@
+<div class="container-fluid">
+
+    <div class="row">
+        <div class="col-md-12">
+            <span><b style="font-size: 30px;">Preapertura de turnos</b></span>
+        </div>
+
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-block">
+                    <div class="table-responsive">
+                        <hr />
+                        <mat-form-field>
+                            <mat-label>Fecha operacional</mat-label>
+                            <input matInput [matDatepicker]="picker" placeholder="Selecciona una fecha" required [(ngModel)]="fechaOperacional" (dateChange)="changeDate($event)">
+                            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                            <mat-datepicker #picker></mat-datepicker>
+                        </mat-form-field>
+                        &nbsp;&nbsp;
+                        <mat-form-field>
+                            <mat-label>Campaña</mat-label>
+                            <mat-select [(ngModel)]="idCampana" required (selectionChange)="changeCampana($event)" #CampanaSelect>
+                                <mat-option>Ninguno</mat-option>
+                                <mat-option [value]="item.id" *ngFor="let item of campanias">{{item.nombre}}</mat-option>
+                            </mat-select>
+                            <mat-error>La campaña es requerida</mat-error>
+                        </mat-form-field>
+                        &nbsp;&nbsp;
+                        <mat-form-field>
+                            <input matInput (keyup)="applyFilter($event.target.value)" placeholder="¿Que deseas buscar?">
+                        </mat-form-field>
+
+                        <div class="pull-right">
+                            <button class="btn btn-primary" *ngIf="fechaOperacional !== undefined && idCampana!== undefined" mat-button (click)="nuevo()"> + Nuevo</button>
+                            <button class="btn btn-success" *ngIf="fechaOperacional !== undefined && idCampana!== undefined" mat-button (click)="actualizarData();"> Actualizar </button>
+                        </div>
+
+                        <table mat-table [dataSource]="dataSource" matSort style="width:100%">
+
+                            <ng-container matColumnDef="id">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>
+                                <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="cajeroUsuario">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header> Usuario </th>
+                                <td mat-cell *matCellDef="let element"> {{element.cajeroUsuario}} </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="estado">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header>Estado</th>
+                                <td mat-cell *matCellDef="let element"><span class="badge badge-{{getState(element).style}}">{{getState(element).description}}</span></td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="opcion">
+                                <th mat-header-cell *matHeaderCellDef>Opciones</th>
+                                <td mat-cell *matCellDef="let element">
+                                    <button mat-button [matMenuTriggerFor]="menu">...</button>
+                                    <mat-menu #menu="matMenu">
+                                        <button mat-menu-item [disabled]="element.estado != 1" (click)="delete(element);">Eliminar</button>
+                                        <button mat-menu-item [disabled]="element.estado != 1" (click)="modify(element);">Modificar</button>
+                                        <button mat-menu-item [disabled]="element.estado != 4" (click)="reconteo(element);">Reconteo</button>
+                                    </mat-menu>
+
+                                </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="cantApertura">
+                                <th mat-header-cell *matHeaderCellDef></th>
+                                <td mat-cell *matCellDef="let element">
+
+                                    <mat-accordion class="example-headers-align">
+                                        <mat-expansion-panel class="mat-elevation-z0">
+                                            <mat-expansion-panel-header>
+                                                <mat-panel-title>
+                                                    Detalle Sticker
+                                                </mat-panel-title>
+                                            </mat-expansion-panel-header>
+                                            <ul class="list-group list-group-flush">
+                                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                    Apertura
+                                                    <span class="badge badge-primary">{{element.cantApertura}}</span>
+                                                </li>
+                                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                    Asignados
+                                                    <span class="badge badge-primary">{{element.cantAsignado}}</span>
+                                                </li>
+                                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                    Impresos
+                                                    <span class="badge badge-primary">{{element.cantSistema}}</span>
+                                                </li>
+                                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                    Cajero devolvio
+                                                    <span class="badge badge-primary">{{element.cantCierreCajero}}</span>
+                                                </li>
+                                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                    Regente recibio
+                                                    <span class="badge badge-primary">{{element.cantCierreRegente}}</span>
+                                                </li>
+                                            </ul>
+                                        </mat-expansion-panel>
+                                    </mat-accordion>
+
+
+                                </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="canjeModalidad">
+                                <th mat-header-cell *matHeaderCellDef></th>
+                                <td mat-cell *matCellDef="let element">
+
+                                    <mat-accordion class="example-headers-align">
+                                        <mat-expansion-panel class="mat-elevation-z0">
+                                            <mat-expansion-panel-header>
+                                                <mat-panel-title>
+                                                    Detalle Cartilla
+                                                </mat-panel-title>
+                                            </mat-expansion-panel-header>
+                                            <ul class="list-group list-group-flush" *ngFor="let canje of element.campanaArqueoStickerDetalle">
+                                                <li class="list-group-item list-group-item-secondary"> {{ canje.descripcion }}</li>
+                                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                    Sistema
+                                                    <span class="badge badge-primary">{{ canje.cantCartillasSistema }}</span>
+                                                </li>
+                                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                    Cajero
+                                                    <span class="badge badge-primary">{{ canje.cantCartillasCierreCajero }}</span>
+                                                </li>
+                                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                    Regente
+                                                    <span class="badge badge-primary">{{ canje.cantCartillasCierreRegente }}</span>
+                                                </li>
+                                            </ul>
+                                        </mat-expansion-panel>
+                                    </mat-accordion>
+                                </td>
+                            </ng-container>
+
+
+                            <ng-container matColumnDef="cantSistema">
+                                <th mat-header-cell *matHeaderCellDef></th>
+                                <td mat-cell *matCellDef="let element"></td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="cantCierreCajero">
+                                <th mat-header-cell *matHeaderCellDef></th>
+                                <td mat-cell *matCellDef="let element"></td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="cantCierreRegente">
+                                <th mat-header-cell *matHeaderCellDef></th>
+                                <td mat-cell *matCellDef="let element"></td>
+                            </ng-container>
+
+                            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                            <tr mat-row *matRowDef="let row; columns: displayedColumns;" class="element-row"></tr>
+                        </table>
+                        <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,53 @@
+<div class="modal-header">
+  <h4 *ngIf="order.id" class="modal-title" id="modal-title">Datos de Facturación - Orden : <b>{{order.name}}</b></h4>
+  <button type="button" class="close" aria-describedby="modal-title" (click)="dismissModal()">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  <mat-form-field class="fullWidth">
+    <mat-label>Fecha de inicio de entrega</mat-label>
+    <input matInput [ngxMatDatetimePicker]="pickerInicioEntrega" placeholder="Seleccionar una fecha hora" [(ngModel)]="param.fechaInicioEntrega"
+      [min]="minDate" [max]="maxDate" [disabled]="false">
+    <mat-datepicker-toggle matSuffix [for]="pickerInicioEntrega"></mat-datepicker-toggle>
+    <ngx-mat-datetime-picker #pickerInicioEntrega [showSpinners]="true" [showSeconds]="true" [stepHour]="1"
+      [stepMinute]="1" [stepSecond]="1" [touchUi]="false" [color]="'primary'"
+      [enableMeridian]="false">
+    </ngx-mat-datetime-picker>
+  </mat-form-field>
+
+  <mat-form-field class="fullWidth">
+    <mat-label>Fecha de llegada</mat-label>
+    <input matInput [ngxMatDatetimePicker]="pickerLlegada" placeholder="Seleccionar una fecha hora" [(ngModel)]="param.fechaLlegada"
+      [min]="minDate" [max]="maxDate" [disabled]="false">
+    <mat-datepicker-toggle matSuffix [for]="pickerLlegada"></mat-datepicker-toggle>
+    <ngx-mat-datetime-picker #pickerLlegada [showSpinners]="true" [showSeconds]="true" [stepHour]="1"
+      [stepMinute]="1" [stepSecond]="1" [touchUi]="false" [color]="'primary'"
+      [enableMeridian]="false">
+    </ngx-mat-datetime-picker>
+  </mat-form-field>
+
+  <mat-form-field class="fullWidth">
+    <mat-label>Fecha de Finalización</mat-label>
+    <input matInput [ngxMatDatetimePicker]="pickerFinalizacion" placeholder="Seleccionar una fecha hora" [(ngModel)]="param.fechaFinalizacion"
+      [min]="minDate" [max]="maxDate" [disabled]="false">
+    <mat-datepicker-toggle matSuffix [for]="pickerFinalizacion"></mat-datepicker-toggle>
+    <ngx-mat-datetime-picker #pickerFinalizacion [showSpinners]="true" [showSeconds]="true" [stepHour]="1"
+      [stepMinute]="1" [stepSecond]="1" [touchUi]="false" [color]="'primary'"
+      [enableMeridian]="false">
+    </ngx-mat-datetime-picker>
+  </mat-form-field>
+
+  <mat-form-field class="fullWidth">
+    <input matInput maxlength="100" placeholder="Nombre de agente de entrega" type="text" [(ngModel)]="param.agenteEntregaNombre">
+    <button mat-button *ngIf="param.agenteEntregaNombre" matSuffix mat-icon-button aria-label="Clear"
+      (click)="param.agenteEntregaNombre=''">
+      <mat-icon>close</mat-icon>
+    </button>
+  </mat-form-field>
+
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-outline-secondary" (click)="dismissModal()">Cancelar</button>
+  <button type="button" class="btn btn-outline-primary pull-rigth" (click)="guardar()">Guardar</button>
+</div>

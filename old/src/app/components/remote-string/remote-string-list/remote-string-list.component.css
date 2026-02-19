@@ -1,0 +1,33 @@
+.mat-column-application {
+  min-width: 100px;
+  padding-left: 5px;
+  padding-right: 5px;
+  text-align: left;
+}
+
+.mat-column-key {
+  min-width: 100px;
+  padding-left: 5px;
+  padding-right: 5px;
+  text-align: left;
+}
+
+.mat-column-value {
+  min-width: 200px;
+  padding-left: 5px;
+  padding-right: 5px;
+  text-align: left;
+}
+
+.mat-column-namespace {
+  min-width: 100px;
+  padding-left: 5px;
+  padding-right: 5px;
+  text-align: left;
+}
+
+.mat-column-action {
+  min-width: 100px;
+  padding-left: 5px;
+  padding-right: 5px;
+}

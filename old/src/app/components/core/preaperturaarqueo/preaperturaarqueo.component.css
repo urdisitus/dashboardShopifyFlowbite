@@ -1,0 +1,12 @@
+table {
+  width: 100%;
+}
+
+/*tr.element-row:hover {
+  background: #C8C8C8;
+}*/
+
+.mat-row {
+  vertical-align: baseline;
+}
+

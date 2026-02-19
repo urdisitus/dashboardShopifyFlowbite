@@ -1,0 +1,53 @@
+.mat-column-actions {
+    min-width: 150px;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.mat-column-id {
+    min-width: 100px;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.mat-column-username {
+    min-width: 150px;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.mat-column-sucursal {
+    min-width: 100px;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.mat-column-nombreCompleto {
+    min-width: 300px;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.mat-column-email {
+    min-width: 200px;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.mat-column-cedula {
+    min-width: 150px;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.mat-column-telefono {
+    min-width: 150px;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.mat-column-celular {
+    min-width: 150px;
+    padding-left: 5px;
+    padding-right: 5px;
+}

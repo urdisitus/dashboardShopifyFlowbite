@@ -1,0 +1,22 @@
+<div class="container-fluid">
+  <mat-tab-group dynamicHeight>
+    <!--<mat-tab label="Ordenes">
+      <app-order-list></app-order-list>
+  </mat-tab>
+  <mat-tab label="Clientes Erp">
+      <app-buscar-client></app-buscar-client>
+  </mat-tab>
+  <mat-tab label="Clientes Shopify">
+      <app-customer-list></app-customer-list>
+  </mat-tab>-->
+    <mat-tab label="Ordenes">
+      <app-order></app-order>
+    </mat-tab>
+    <mat-tab label="Sucursales">
+      <app-branch-offices></app-branch-offices>
+    </mat-tab>
+    <mat-tab *ngFor="let shop of shops" label="{{shop.name}}">
+      <app-shopify-order-list [shopKey]="shop.shopKey"></app-shopify-order-list>      
+    </mat-tab>
+  </mat-tab-group>
+</div>

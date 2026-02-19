@@ -1,0 +1,20 @@
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+agm-map {
+  height: 300px;
+}
+
+.thead-col-50 {
+  width: 50%;
+}
+
+.tbody-col-25 {
+  width: 25%;
+}
+
+.tbody-col-75 {
+  width: 75%;
+}

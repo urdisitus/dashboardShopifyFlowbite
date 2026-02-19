@@ -1,0 +1,66 @@
+<div class="authentication">
+    <div class="sign-in-2">
+        <!-- <div class="container-fluid no-pdd-horizon bg" style="background-image: url('assets/images/others/img-30.jpg')"> -->
+        <div class="container-fluid no-pdd-horizon bg">
+            <div class="row">
+                <div class="col-md-10 mr-auto ml-auto">
+                    <div class="row">
+                        <div class="mr-auto ml-auto full-height height-100 d-flex align-items-center">
+                            <div class="vertical-align full-height">
+                                <div class="table-cell">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <div class="pdd-horizon-30 pdd-vertical-30">
+                                                <div class="mrg-btm-30">
+                                                    <img class="img-responsive inline-block" src="assets/images/logo/logo_farmacorp.png" alt="">
+                                                    <h2 class="inline-block pull-right no-mrg-vertical pdd-top-15">
+                                                        Inicio de sesión</h2>
+                                                </div>
+                                                <p class="mrg-btm-15 font-size-13">Por favor, ingrese su nombre de usuario y contraseña para iniciar sesión</p>
+                                                <form class="ng-pristine ng-valid" [formGroup]="modelForm" (ngSubmit)="login()">
+                                                    <div class="form-group">
+                                                        <input id="userName" autocomplete="nope"  name="userName" type="text" class="form-control" formControlName="userName" placeholder="Usuario" required>
+                                                        <div *ngIf="userName.invalid && (userName.dirty || userName.touched)" class="fcb-alert alert alert-danger">
+                                                            <div *ngIf="userName.errors.required">
+                                                                El campo "Usuario" es requerido.
+                                                            </div>
+                                                            <div *ngIf="userName.errors.maxlength">
+                                                                El campo "Usuario" no debe tener más de 100 caracteres.
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <input id="password" autocomplete="nope"  type="password" name="password" class="form-control" formControlName="password" placeholder="Contraseña" required>
+                                                        <div *ngIf="password.invalid && (password.dirty || password.touched)" class="fcb-alert alert alert-danger">
+                                                            <div *ngIf="password.errors.required">
+                                                                El campo "Contraseña" es requerido.
+                                                            </div>
+                                                            <div *ngIf="password.errors.maxlength">
+                                                                El campo "Contraseña" no debe tener más de 100 caracteres.
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="checkbox font-size-13 inline-block no-mrg-vertical no-pdd-vertical">
+                                                        <input id="agreement" name="agreement" type="checkbox" formControlName="remind">
+                                                        <label for="agreement">Recordar</label>
+                                                    </div>
+                                                    <div class="pull-right">
+                                                        <a (click)="resetPassword()" href="javascript:void(0)" class="text-primary font">¿Olvidaste tu contraseña?</a>
+                                                    </div>
+                                                    <div class="mrg-top-20 text-right">
+                                                        <button type="submit" class="btn btn-info">Iniciar
+															sesión</button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

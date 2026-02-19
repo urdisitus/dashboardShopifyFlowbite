@@ -1,0 +1,12 @@
+
+::ng-deep .cdk-overlay-container {
+  z-index: 99999 !important;
+}
+
+.mat-select-panel {
+  z-index: 9999 !important;
+}
+
+.cdk-global-overlay-wrapper, .cdk-overlay-container {
+  z-index: 99999 !important;
+}

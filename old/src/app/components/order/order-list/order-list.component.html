@@ -1,0 +1,109 @@
+<div class="container-fluid">
+
+  <div class="row">
+    <div class="col-md-12">
+      <span><b style="font-size: 30px;">Order</b></span>
+    </div>
+
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-block">
+
+          <div class="row">
+            <div class="col-md-12">
+              <mat-form-field>
+                <input matInput (keyup)="applyFilter($event.target.value)"[(ngModel)]="criteria" placeholder="¿Que deseas buscar?">
+              </mat-form-field>
+              <mat-form-field style="margin-right: 10px;" floatLabel="always">
+                <mat-label>Fecha Inicial</mat-label>
+                <input matInput [matDatepicker]="startPicker" placeholder="Fecha Inicial" [(ngModel)]="startDate">
+                <mat-datepicker-toggle matSuffix [for]="startPicker"></mat-datepicker-toggle>
+                <mat-datepicker #startPicker></mat-datepicker>
+              </mat-form-field>
+              <mat-form-field style="margin-right: 10px;" floatLabel="always">
+                <mat-label>Fecha Final</mat-label>
+                <input matInput [matDatepicker]="endPicker" placeholder="Fecha Final" [(ngModel)]="endDate">
+                <mat-datepicker-toggle matSuffix [for]="endPicker"></mat-datepicker-toggle>
+                <mat-datepicker #endPicker></mat-datepicker>
+              </mat-form-field>
+
+              <ng-select2 id="branchOffice" name="branchOffice" style="width: 250px; margin-right: 10px;" [width]="200" [(ngModel)]="branchOfficeSelected" [data]="branchOfficesData" [placeholder]="'Sucursal'" [options]="branchOfficesConfig">
+              </ng-select2>
+
+              <ng-select2 id="status" name="status" style="width: 250px; margin-right: 10px;" [width]="200" [(ngModel)]="statusSelected" [data]="statusData" [placeholder]="'Estado'" [options]="statusConfig">
+              </ng-select2>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="pull-right">
+                <button class="btn btn-primary" mat-button (click)="actualizarData();"> Filtrar </button>
+                <button class="btn btn-success" mat-button (click)="actualizarData();"> Actualizar </button>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="table-responsive">
+                <table mat-table [dataSource]="dataSource" matSort style="width:100%">
+
+                  <ng-container matColumnDef="extName">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> # order </th>
+                    <td mat-cell *matCellDef="let element"> {{element.extName}} </td>
+                  </ng-container>
+                  <ng-container matColumnDef="createUtcDate">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Fecha </th>
+                    <td mat-cell *matCellDef="let element"> {{element.createUtcDate | date:'yyyy/MM/dd HH:mm:ss'}} </td>
+                  </ng-container>
+                  <ng-container matColumnDef="totalAmount">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Total </th>
+                    <td mat-cell *matCellDef="let element"> {{element.totalAmount}} </td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="customerName">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Cliente </th>
+                    <td mat-cell *matCellDef="let element"> {{element.customerName}} </td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="customerEmail">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Correo </th>
+                    <td mat-cell *matCellDef="let element"> {{element.customerEmail}} </td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="keyBodega">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Bodega </th>
+                    <td mat-cell *matCellDef="let element"> {{element.keyBodega}} </td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="status">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Estado</th>
+                    <td mat-cell *matCellDef="let element"><span class="badge badge-{{getState(element).style}}">{{getState(element).description}}</span>
+                                                           <span *ngIf="element.status == 14" class="badge badge-{{getDelivery(element).style}}">{{getDelivery(element).description}}</span></td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="opcion">
+                    <th mat-header-cell *matHeaderCellDef>Opciones</th>
+                    <td mat-cell *matCellDef="let element">
+                      <button mat-button [matMenuTriggerFor]="menu">...</button>
+                      <mat-menu #menu="matMenu">
+                        <button mat-menu-item [disabled]="element.status != 4" (click)="marcarEntregado(element);">Marca como entregado</button>
+                        <button mat-menu-item (click)="openOrderDetails(element.id);">Ver orden</button>
+                      </mat-menu>
+
+                    </td>
+                  </ng-container>
+
+                  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                  <tr mat-row *matRowDef="let row; columns: displayedColumns;" class="element-row"></tr>
+                </table>
+                <mat-paginator [pageSizeOptions]="[20, 40, 50, 100]" showFirstLastButtons></mat-paginator>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

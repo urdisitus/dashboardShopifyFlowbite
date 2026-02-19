@@ -1,0 +1,41 @@
+<div class="modal-header">
+  <h4 class="modal-title" id="modal-title">Sucusal : {{bodega.keyBodega}}</h4>
+  <button type="button" class="close" aria-describedby="modal-title" (click)="dismissModal()">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<form #reportModel="ngForm">
+  <div class="modal-body">
+    <div class="row">
+      <div class="col-sm-12">
+
+        <mat-form-field class="new-width">
+          <mat-label>Nombre</mat-label>
+          <input matInput maxlength="500" placeholder="Ej. Sucursal 2 de agosto..." #nombreField="ngModel" name="nombreField" [(ngModel)]="bodega.name" required>
+          <mat-error *ngIf="(!nombreField.valid && nombreField.touched) || nombreField.value === ''">
+            Debe introducir un nombre
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field class="new-width">
+          <mat-label>Descripción</mat-label>
+          <input matInput maxlength="500" placeholder="Ej. Sucursal 2 de agosto..." #descripcionField="ngModel" name="descripcionField" [(ngModel)]="bodega.descript" required>
+          <mat-error *ngIf="(!descripcionField.valid && descripcionField.touched) || descripcionField.value === ''">
+            Debe introducir una Descripción
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field class="new-width">
+          <mat-label>Dirección</mat-label>
+          <input matInput maxlength="500" placeholder="Ej. Av. 2 de agosto..." #direccionField="ngModel" name="direccionField" [(ngModel)]="bodega.address" required>
+          <mat-error *ngIf="(!direccionField.valid && direccionField.touched) || direccionField.value === ''">
+            Debe introducir una Dirección
+          </mat-error>
+        </mat-form-field>
+
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-secondary" (click)="dismissModal()">Cancelar</button>
+    <button type="button" class="btn btn-{{reportModel.form.valid==false? 'danger' : 'success'}} pull-rigth" [disabled]="!reportModel.form.valid" (click)="guardar()">Guardar</button>
+  </div>
+</form>

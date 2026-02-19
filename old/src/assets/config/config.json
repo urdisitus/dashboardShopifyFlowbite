@@ -1,0 +1,9 @@
+{
+  "sfe": {
+    "urlBase": "https://develop.farmacorp.com/sfesucursal/",
+    "tenantCode": "Farmacorp",
+    "tenantKey": "6f75c697c7d40cec23ad1ad975a671c2",
+    "userAuth": "fcb",
+    "userPassword": "12345"
+  }
+}

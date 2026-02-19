@@ -1,0 +1,127 @@
+<div class="modal-header">
+    <button type="button" class="close" aria-describedby="modal-title" (click)="dismissModal()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div class="modal-body">
+    <div id="imprimible">
+        <div class="row">
+            <div class="col-sm-12">
+                <h4 class="modal-title titulo firmalabel" id="modal-title">COMPROBANTE DE ARQUEO DE CAJA - PARA ARCHIVO</h4>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="row contentstyle">
+                    <div class="col-md-3">
+                        <b><label>Fecha Apertura:</label></b>
+                    </div>
+                    <div class="col-md-3">
+                        <label>{{turno.fechaCreacion | date:'dd/MM/yyyy HH:mm:ss'}}</label>
+                    </div>
+                    <div class="col-md-3">
+                        <b><label>No. Arqueo:</label></b>
+                    </div>
+                    <div class="col-md-3">
+                        <label>{{arqueo.codigo}}</label>
+                    </div>
+                    <div class="col-md-3">
+                        <b><label>Fecha Cierre:</label></b>
+                    </div>
+                    <div class="col-md-9">
+                        <label>{{turno.fechaCierre | date:'dd/MM/yyyy HH:mm:ss'}}</label>
+                    </div>
+                    <div class="col-md-3">
+                        <b><label>Sucursal:</label></b>
+                    </div>
+                    <div class="col-md-3">
+                        <label>SUCURSAL {{turno.idSucursal}}</label>
+                    </div>
+                    <div class="col-md-3">
+                        <b><label>Tipo Cambio:</label></b>
+                    </div>
+                    <div class="col-md-3">
+                        <label>{{arqueo.tipoCambioSus | number:'1.2-2'}}</label>
+                    </div>
+                    <div class="col-md-3">
+                        <b><label>Turno:</label></b>
+                    </div>
+                    <div class="col-md-3">
+                        <label>{{turno.id}}</label>
+                    </div>
+                    <div class="col-md-3">
+                        <b><label>Usuario Cajero:</label></b>
+                    </div>
+                    <div class="col-md-3">
+                        <label>({{turno.usuarioId}}) {{turno.usuario}}</label>
+                    </div>
+                    <div class="col-md-3">
+                        <b><label>Caja:</label></b>
+                    </div>
+                    <div class="col-md-3">
+                        <label>{{turno.cajaId}}</label>
+                    </div>
+                    <div class="col-md-3">
+                        <b><label>Usuario Regente:</label></b>
+                    </div>
+                    <div class="col-md-3">
+                        <label>({{arqueo.regenteId}}) {{arqueo.regente}}</label>
+                    </div>
+                </div>
+                <div class="table-overflow">
+                    <table class="table table-bordered table-hover table-sm">
+                        <thead>
+                            <tr>
+                                <th style="text-align: center">FORMA DE PAGO</th>
+                                <th style="text-align: center">MONTO</th>
+                                <th style="text-align: center">MONTO SISTEMA</th>
+                                <th style="text-align: center">MONTO REGENTE</th>
+                                <th style="text-align: center">DIFERENCIA</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let pago of detalle">
+                                <td style="text-align: left;">{{getTipoPagoDescripcion(pago.tipoPagoId)}}</td>
+                                <td style="text-align: right">{{pago.montoBs | number:'1.2-2'}}</td>
+                                <td style="text-align: right">{{pago.montoSistema | number:'1.2-2'}}</td>
+                                <td style="text-align: right">{{pago.montoRegenteBs | number:'1.2-2'}}</td>
+                                <td style="text-align: right">{{getDiferencia(pago) | number:'1.2-2'}}</td>
+                            </tr>
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <th style="text-align: center">TOTAL Bs.</th>
+                                <th style="text-align: right">{{arqueo.montoTotalBs | number:'1.2-2'}}</th>
+                                <th style="text-align: right">{{arqueo.montoTotalSistema | number:'1.2-2'}}</th>
+                                <th style="text-align: right">{{arqueo.regenteMontoTotalBs | number:'1.2-2'}}</th>
+                                <th style="text-align: right">{{getTotalDiferencia() | number:'1.2-2'}}</th>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+                <div class="row contentstyle">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <b><label>Observación Usuario Regente: </label></b><br>
+                            <label>{{arqueo.observacion}}</label>
+                        </div>
+                    </div>
+                    <div class="col-md-6 firma firmalabel">
+                        <span>-----------------------------------</span><br>
+                        <span>FIRMA CAJERO</span><br>
+                        <span>({{arqueo.usuarioId}}) {{arqueo.usuario}}</span>
+                    </div>
+                    <div class="col-md-6 firma firmalabel">
+                        <span>-----------------------------------</span><br>
+                        <span>FIRMA REG. FARMACEUTICO</span><br>
+                        <span>({{arqueo.regenteId}}) {{arqueo.regente}}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-outline-secondary" (click)="dismissModal()">Cancelar</button>
+    <button type="button" class="btn btn-success pull-rigth" (click)="imprimir()">Imprimir</button>
+</div>

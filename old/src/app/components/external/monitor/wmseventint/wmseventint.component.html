@@ -1,0 +1,415 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-12">
+      <span
+        ><b style="font-size: 30px"
+          >Eventos de Integración Shopify - Wms</b
+        ></span
+      >
+    </div>
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-header">Componentes</div>
+        <div class="card-block">
+          <table
+            *ngIf="integradorGenerals && integradorGenerals.length > 0"
+            class="table"
+          >
+            <thead>
+              <tr>
+                <th>Componente</th>
+                <th>Estado</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr
+                *ngFor="let item of integradorGenerals"
+                class="ng-star-inserted"
+              >
+                <td>
+                  <div class="d-flex align-items-center my-2">
+                    <div class="ms-3">
+                      <div class="fw-bolder text-dark">
+                        {{ item.descripcion }}
+                      </div>
+                    </div>
+                  </div>
+                </td>
+                <td>
+                  <div
+                    *ngIf="item.keyStatus === 'running'"
+                    class="
+                      d-flex
+                      align-items-center
+                      text-success
+                      ng-star-inserted
+                    "
+                  >
+                    <span class="badge-dot me-2 bg-success"></span
+                    ><span class="text-capitalize">Activo</span>
+                  </div>
+                  <div
+                    *ngIf="item.keyStatus === 'error'"
+                    class="
+                      d-flex
+                      align-items-center
+                      text-danger
+                      ng-star-inserted
+                    "
+                  >
+                    <span class="badge-dot me-2 bg-danger"></span
+                    ><span class="text-capitalize">Detenido</span>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="pull-right">
+            <button
+              class="btn btn-success margin-left"
+              (click)="loadIntegradorGeneral(false)"
+            >
+              Actualizar
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-header">Cantidades por Tipo</div>
+        <div class="card-block">
+          <table
+            *ngIf="eventTypeCount && eventTypeCount.length > 0"
+            class="table"
+          >
+            <thead>
+              <tr>
+                <th>Tipo</th>
+                <th>Error</th>
+                <th>Pendiente</th>
+                <th>Exitoso</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of eventTypeCount" class="ng-star-inserted">
+                <td>
+                  <div class="d-flex align-items-center my-2">
+                    <div class="ms-3">
+                      <div class="fw-bolder text-dark">{{ item.type }}</div>
+                    </div>
+                  </div>
+                </td>
+                <td>
+                  <div
+                    class="
+                      d-flex
+                      align-items-center
+                      text-danger
+                      ng-star-inserted
+                    "
+                  >
+                    <span class="badge-dot me-2 bg-danger"></span
+                    ><span class="text-capitalize">{{ item.error }}</span>
+                  </div>
+                </td>
+                <td>
+                  <div
+                    class="
+                      d-flex
+                      align-items-center
+                      text-default
+                      ng-star-inserted
+                    "
+                  >
+                    <span class="badge-dot me-2 bg-default"></span
+                    ><span class="text-capitalize">{{ item.pending }}</span>
+                  </div>
+                </td>
+                <td>
+                  <div
+                    class="
+                      d-flex
+                      align-items-center
+                      text-success
+                      ng-star-inserted
+                    "
+                  >
+                    <span class="badge-dot me-2 bg-success"></span
+                    ><span class="text-capitalize">{{ item.success }}</span>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="pull-right">
+            <button
+              class="btn btn-success margin-left"
+              (click)="loadIntegradorGeneral(false)"
+            >
+              Actualizar
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-header">Eventos</div>
+        <div class="card-block">
+          <div class="table-responsive">
+            <div class="row">
+              <div class="col-sm-3 col-md-2">
+                <mat-form-field
+                  class="margin-left matFormField"
+                  floatLabel="always"
+                  appearance="outline"
+                >
+                  <mat-label>Nro Orden</mat-label>
+                  <input
+                    #inputShopifyBusiness
+                    matInput
+                    placeholder="Nro Orden Shopify"
+                  />
+                </mat-form-field>
+              </div>
+              <div class="col-sm-3 col-md-2">
+                <mat-form-field
+                  class="margin-left matFormField"
+                  floatLabel="always"
+                  appearance="outline"
+                >
+                  <mat-label>Fecha Inicial</mat-label>
+                  <input
+                    matInput
+                    [matDatepicker]="startPicker"
+                    placeholder="Selecciona una fecha inicial"
+                    required
+                    [(ngModel)]="startDate"
+                    (dateChange)="changeStartDate($event)"
+                  />
+                  <mat-datepicker-toggle
+                    matSuffix
+                    [for]="startPicker"
+                  ></mat-datepicker-toggle>
+                  <mat-datepicker #startPicker></mat-datepicker>
+                </mat-form-field>
+              </div>
+              <div class="col-sm-3 col-md-2">
+                <mat-form-field
+                  class="margin-left matFormField"
+                  floatLabel="always"
+                  appearance="outline"
+                >
+                  <mat-label>Fecha Final</mat-label>
+                  <input
+                    matInput
+                    [matDatepicker]="endPicker"
+                    placeholder="Selecciona una fecha final"
+                    required
+                    [(ngModel)]="endDate"
+                    (dateChange)="changeEndDate($event)"
+                  />
+                  <mat-datepicker-toggle
+                    matSuffix
+                    [for]="endPicker"
+                  ></mat-datepicker-toggle>
+                  <mat-datepicker #endPicker></mat-datepicker>
+                </mat-form-field>
+              </div>
+              <div class="col-sm-3 col-md-3">
+                <mat-form-field class="matFormField">
+                  <mat-label>Tipo</mat-label>
+                  <mat-select [(value)]="infoIntegraTypeSelected">
+                    <mat-option
+                      *ngFor="let item of infoIntegraTypes"
+                      [value]="item.codigo"
+                      >{{ item.descripcion }}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+              <div class="col-sm-3 col-md-3">
+                <mat-form-field class="matFormField">
+                  <mat-label>Estado</mat-label>
+                  <mat-select [(value)]="eventstatesTypeSelected">
+                    <mat-option
+                      *ngFor="let item of eventstatesTypes"
+                      [value]="item.codigo"
+                      >{{ item.descripcion }}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+              <div class="col-sm-3 col-md-3">
+                <mat-form-field class="matFormField">
+                  <mat-label>Tipo Evento</mat-label>
+                  <mat-select [(value)]="eventCodesTypeSelected">
+                    <mat-option
+                      *ngFor="let item of eventCodesTypes"
+                      [value]="item.codigo"
+                      >{{ item.descripcion }}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+            </div>
+            &nbsp;&nbsp;
+            <div class="pull-right">
+              <button class="btn btn-success margin-left" (click)="search()">
+                Buscar Eventos
+              </button>
+            </div>
+            <table
+              mat-table
+              [dataSource]="_dataSource"
+              matSort
+              style="width: 100%"
+            >
+              <!-- Position Column -->
+              <ng-container matColumnDef="event">
+                <th mat-header-cell *matHeaderCellDef>Acciones</th>
+                <td mat-cell *matCellDef="let element">
+                  <div
+                    *ngIf="
+                      element.jsonResponse ||
+                      element.errorMessage ||
+                      element.keyEstado === '-1'
+                    "
+                  >
+                    <button mat-button [matMenuTriggerFor]="menu">...</button>
+                    <mat-menu #menu="matMenu">
+                      <button
+                        *ngIf="element.jsonResponse"
+                        mat-menu-item
+                        (click)="ver(element)"
+                      >
+                        Ver Json Wms
+                      </button>
+                      <button
+                        *ngIf="element.errorMessage"
+                        mat-menu-item
+                        (click)="verErrorMessage(element)"
+                      >
+                        Ver Mensaje Error
+                      </button>
+                      <button
+                        *ngIf="element.keyEstado === '-1'"
+                        mat-menu-item
+                        (click)="changeState(element, '0')"
+                      >
+                        Cambiar a Pendiente
+                      </button>
+                      <button
+                        *ngIf="element.keyEstado === '-1'"
+                        mat-menu-item
+                        (click)="changeState(element, '1')"
+                      >
+                        Cambiar a Completado
+                      </button>
+                    </mat-menu>
+                  </div>
+                </td>
+              </ng-container>
+              <!-- Position Column -->
+              <ng-container matColumnDef="codigo">
+                <th mat-header-cell *matHeaderCellDef>Código</th>
+                <td mat-cell *matCellDef="let element">{{ element.codigo }}</td>
+              </ng-container>
+              <!-- Position Column -->
+              <ng-container matColumnDef="tipo">
+                <th mat-header-cell *matHeaderCellDef>Tipo</th>
+                <td mat-cell *matCellDef="let element">{{ element.tipo }}</td>
+              </ng-container>
+              <!-- Position Column -->
+              <ng-container matColumnDef="idIntegrador">
+                <th mat-header-cell *matHeaderCellDef>Id Integrador</th>
+                <td mat-cell *matCellDef="let element">
+                  {{ element.idIntegrador }}
+                </td>
+              </ng-container>
+              <!-- Position Column -->
+              <ng-container matColumnDef="idShopifyBusiness">
+                <th mat-header-cell *matHeaderCellDef>Nro Orden</th>
+                <td mat-cell *matCellDef="let element">
+                  #{{ element.idShopifyBusiness }}
+                </td>
+              </ng-container>
+              <!-- Position Column -->
+              <ng-container matColumnDef="tipoEventCode">
+                <th mat-header-cell *matHeaderCellDef>Tipo Evento</th>
+                <td mat-cell *matCellDef="let element">
+                  {{ element.tipoEventCode }}
+                </td>
+              </ng-container>
+              <!-- Position Column -->
+              <ng-container matColumnDef="estado">
+                <th mat-header-cell *matHeaderCellDef>Estado</th>
+                <td mat-cell *matCellDef="let element">
+                  <span
+                    [ngClass]="{
+                      label: true,
+                      'label-danger': element.estado == -1,
+                      'label-primary': element.estado == 1,
+                      'label-default': element.estado == 0
+                    }"
+                  >
+                    {{ element.estado }}
+                  </span>
+                </td>
+              </ng-container>
+              <!-- Position Column -->
+              <ng-container matColumnDef="errorCodeBusiness">
+                <th mat-header-cell *matHeaderCellDef>Error Negocio</th>
+                <td mat-cell *matCellDef="let element">
+                  {{ element.errorCodeBusiness }}
+                </td>
+              </ng-container>
+              <!-- Position Column -->
+              <ng-container matColumnDef="dCreateDateUtcDate">
+                <th mat-header-cell *matHeaderCellDef>Fecha Creación</th>
+                <td mat-cell *matCellDef="let element">
+                  {{
+                    element.dCreateDateUtcDate | date: "dd/MM/yyyy HH:mm:ss.SSS"
+                  }}
+                </td>
+              </ng-container>
+
+              <!-- Position Column -->
+              <ng-container matColumnDef="dOrigenDate">
+                <th mat-header-cell *matHeaderCellDef>Fecha Origen</th>
+                <td mat-cell *matCellDef="let element">
+                  {{ element.dOrigenDate | date: "dd/MM/yyyy HH:mm:ss.SSS" }}
+                </td>
+              </ng-container>
+
+              <!-- Position Column -->
+              <ng-container matColumnDef="dEnvioDate">
+                <th mat-header-cell *matHeaderCellDef>Fecha Envío</th>
+                <td mat-cell *matCellDef="let element">
+                  {{ element.dEnvioDate | date: "dd/MM/yyyy HH:mm:ss.SSS" }}
+                </td>
+              </ng-container>
+
+              <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+              <tr
+                mat-row
+                [ngClass]="{
+                  error: row.keyEstado == -1,
+                  success: row.keyEstado == 1
+                }"
+                *matRowDef="let row; columns: displayedColumns"
+              ></tr>
+            </table>
+            <mat-paginator
+              [length]="_dataSource?.resultPage?.totalFiltered"
+              [pageSize]="10"
+              [pageSizeOptions]="[5, 10, 20, 50, 100]"
+              showFirstLastButtons
+            ></mat-paginator>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

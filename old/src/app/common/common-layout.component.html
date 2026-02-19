@@ -1,0 +1,143 @@
+<div class="app" [ngClass]="
+    {
+        'is-collapsed': app.layout.isMenuCollapsed,
+        'is-opened': app.layout.isMenuOpened,
+        'rtl' : app.layout.rtlActived
+    }">
+    <div class="layout" [ngClass]="headerSelected">
+
+        <div [ngClass]="sidenavSelected">
+            <!-- Side Nav START -->
+            <div class="side-nav" sideBar>
+                <div class="side-nav-inner">
+                    <div class="side-nav-logo">
+                        <a href="" style="width: auto;" [routerLink]="['/home']">
+                            <div class="logo logo-dark" style="background-image: url('assets/images/logo/logo_farmacorp.png')">
+                            </div>
+                            <div class="logo logo-white" style="background-image: url('assets/images/logo/logo_farmacorp_white.png')">
+                            </div>
+                        </a>
+                        <div class="mobile-toggle side-nav-toggle">
+                            <a href="javascript:void(0);" (click)="onMenuCollapse()">
+                                <i class="ti-arrow-circle-left"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <app-dashboard-menu [menu]="menu">
+                    </app-dashboard-menu>
+                </div>
+            </div>
+            <!-- Side Nav END -->
+
+            <!-- Page Container START -->
+            <div class="page-container">
+
+                <!-- Top Nav START -->
+                <div class="header navbar">
+                    <div class="header-container">
+                        <ul class="nav-left">
+                            <li>
+                                <a class="side-nav-toggle" href="javascript:void(0);" (click)="onMenuCollapse()">
+                                    <i class="ti-view-grid"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="side-nav-toggle" href="javascript:void(0);" (click)="onReloadClick()">
+                                    <i class="ti-reload"></i>
+                                    Recargar Cache Shopify
+                                </a>
+                            </li>
+                        </ul>
+                        <ul class="nav-right">
+                            <li *ngIf="userInfo.keyBodega && userInfo.noCia && !loadingTurno" class="dropdown">
+                                <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown">
+                                    <div class="user-info">
+                                        <span class="name pdd-right-5">{{userInfo.keyBodega}} / {{userInfo.puntoVentaId}} <b *ngIf="turno">{{turnoDesc()}}</b></span>
+                                        <i class="ti-angle-down font-size-10"></i>
+                                    </div>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li *ngIf="!turno">
+                                        <a href="javascript:void(0);" (click)="iniciarTurno()">
+                                            <i class="ti-calendar pdd-right-10"></i>
+                                            <span>Iniciar turno</span>
+                                        </a>
+                                    </li>
+                                    <li *ngIf="turno">
+                                        <a href="javascript:void(0);" (click)="cerrarTurno()">
+                                            <i class="ti-money pdd-right-10"></i>
+                                            <span>Cerrar Turno</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="user-profile dropdown">
+                                <a href="#/profile" class="dropdown-toggle" data-toggle="dropdown">
+                                    <img class="profile-img img-fluid" src="assets/images/user.png">
+                                    <div class="user-info">
+                                        <span class="name pdd-right-5">Bienvenido <b>{{userInfo.userName}}</b></span>
+                                        <i class="ti-angle-down font-size-10"></i>
+                                    </div>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <!-- <li>
+                                        <a href="">
+                                            <i class="ti-settings pdd-right-10"></i>
+                                            <span>Ajustes</span>
+                                        </a>
+                                    </li> -->
+                                    <li>
+                                        <a href="#/perfil">
+                                            <i class="ti-user pdd-right-10"></i>
+                                            <span>Perfil</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:void(0);" (click)="openChangePassword()">
+                                            <i class="ti-key pdd-right-10"></i>
+                                            <span>Cambiar Contraseña</span>
+                                        </a>
+                                    </li>
+                                    <li role="separator" class="divider"></li>
+                                    <li>
+                                        <a href="javascript:void(0);" (click)="closeSession()">
+                                            <i class="ti-power-off pdd-right-10"></i>
+                                            <span>Cerrar Sesión</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <!-- Top Nav END -->
+
+                <!-- Content Wrapper START -->
+                <div class="main-content">
+                    <router-outlet></router-outlet>
+                </div>
+                <!-- Content Wrapper END -->
+
+                <!-- Footer START -->
+                <footer class="content-footer">
+                    <div class="footer">
+                        <div class="copyright">
+                            <span>Farmacorp S.A. © 2020</span>
+                            <!-- <span class="go-right">
+                                <a href="" class="text-gray mrg-right-15">Link 1</a>
+                                <a href="" class="text-gray">Link 2</a>
+                            </span> -->
+                        </div>
+                    </div>
+                </footer>
+                <!-- Footer END -->
+
+            </div>
+            <!-- Page Container END -->
+
+        </div>
+    </div>
+</div>
+<!-- Modal START-->
+<app-change_password #formChangePassword>
+</app-change_password>

@@ -1,0 +1,31 @@
+<div class="modal-header">
+    <h4 class="modal-title" id="modal-title">Nueva preapertura</h4>
+    <button type="button" class="close" aria-describedby="modal-title" (click)="modal.dismiss('Cross click')">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+    <form #preaperturaModel="ngForm">
+        <p>
+            <label>Usuario :</label>
+            <input class="form-control" placeholder="Usuario" type="text" #usuario="ngModel" name="usuario" [(ngModel)]="preapertura.cajeroUsuario" required readonly />
+            <span class="badge badge-danger" *ngIf="!usuario.valid && usuario.touched">Debe introducir un usuario</span>
+        </p>
+        <p>
+            <label>Cantidad de sticker entregados :</label>
+            <input class="form-control" placeholder="Sticker entregados" type="number" #cantidad="ngModel" name="cantidad" [(ngModel)]="preapertura.cantApertura" required pattern="[0-9]*" />
+            <span class="badge badge-danger" *ngIf="!cantidad.valid && cantidad.touched">Debe introducir una cantidad</span>
+
+        </p>
+    </form>
+
+</div>
+
+<div class="modal-footer justify-content-between">
+    <button type="button" class="btn btn-outline-info" (click)="buscarUsuario();">Buscar usuario</button>
+    <div>
+        <button type="button" class="btn btn-outline-secondary" (click)="modal.dismiss('cancel click')">Cancelar</button>
+        <button type="button" class="btn btn-{{preaperturaModel.form.valid==false? 'danger' : 'success'}}" [disabled]="!preaperturaModel.form.valid" (click)=" modal.close(preapertura)">Guardar</button>
+
+    </div>
+</div>

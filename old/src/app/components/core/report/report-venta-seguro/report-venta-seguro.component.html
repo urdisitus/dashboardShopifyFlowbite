@@ -1,0 +1,71 @@
+<div class="row">
+    <div class="col-md-12">
+        <span><b style="font-size: 30px;">{{this.reportTitle()}}</b></span>&nbsp;
+        <span>{{this.reportSubtitle()}}</span>
+    </div>
+</div>
+<div class="mat-elevation-z8">
+    <mat-card>
+        <div class="row">
+            <div class="col-md-3">
+                <mat-form-field class="matFormField" floatLabel="always">
+                    <mat-label>Fecha Inicial</mat-label>
+                    <input matInput [matDatepicker]="startPicker" placeholder="Fecha Inicial" [(ngModel)]="startDate">
+                    <mat-datepicker-toggle matSuffix [for]="startPicker"></mat-datepicker-toggle>
+                    <mat-datepicker #startPicker></mat-datepicker>
+                </mat-form-field>
+            </div>
+            <div class="col-md-3">
+                <mat-form-field class="matFormField" floatLabel="always">
+                    <mat-label>Fecha Final</mat-label>
+                    <input matInput [matDatepicker]="endPicker" placeholder="Fecha Final" [(ngModel)]="endDate">
+                    <mat-datepicker-toggle matSuffix [for]="endPicker"></mat-datepicker-toggle>
+                    <mat-datepicker #endPicker></mat-datepicker>
+                </mat-form-field>
+            </div>
+            <div *ngIf="!disabledCodCajero" class="col-md-3">
+              <mat-form-field class="matFormField" floatLabel="always" style="margin-right: 10px;">
+                  <mat-label>Código Vendedor</mat-label>
+                  <input matInput [(ngModel)]="codVendedor" placeholder="Ej: 16670" maxlength="20">
+              </mat-form-field>
+            </div>
+            <div *ngIf="!disabledCodCajero" class="col-md-3">
+                <mat-form-field class="matFormField" floatLabel="always" style="margin-right: 10px;">
+                    <mat-label>Código Cajero</mat-label>
+                    <input matInput [(ngModel)]="codCajero" placeholder="Ej: 16670" maxlength="20">
+                </mat-form-field>
+            </div>
+            <div class="col-md-3">
+                <mat-form-field class="matFormField" floatLabel="always" style="margin-right: 10px;">
+                    <mat-label>Código Caja</mat-label>
+                    <input matInput [(ngModel)]="codCaja" placeholder="Ej: 1" maxlength="20">
+                </mat-form-field>
+            </div>
+            <div *ngIf="!disabledBranchOffice" class="col-md-4">
+                <div class="form-group">
+                    <div class="form-inline">
+                        <a (click)="loadBranchOffices()" class="btn btn-icon btn-flat btn-rounded icon-style" href="javascript:void(0);"><i class="ei-refresh-alt"></i></a>
+                        <a (click)="clearBranchOffices()" class="btn btn-icon btn-flat btn-rounded icon-style" href="javascript:void(0);"><i class="ei-eraser"></i></a>
+                        <a (click)="selectAllBranchOffices()" class="btn btn-icon btn-flat btn-rounded icon-style" href="javascript:void(0);"><i class="ei-checked-box"></i></a>
+                        <ng-select2 [attr.disabled]="disabledBranchOffice" id="branchOffice" name="branchOffice" style="width: 250px; margin-right: 10px;" [width]="200" [(ngModel)]="branchOfficeSelected" [data]="branchOfficesData" [placeholder]="'Sucursal'" [options]="branchOfficesConfig">
+                        </ng-select2>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <mat-checkbox [(ngModel)]="generateDetail">Generar Detalle</mat-checkbox>
+            </div>
+            <div class="col-md-3">
+                <button type="button" class="btn btn-primary btn-sm pull-right" (click)="onGenerateClick()">
+                <i class="ti-search pdd-right-5"></i>
+                <span>Generar Reporte</span>
+              </button>
+            </div>
+        </div>
+    </mat-card>
+</div><br>
+<div *ngIf="url" class="mat-elevation-z8">
+    <mat-card>
+        <iframe (load)="onLoadComplete()" [src]="url | safe" width="100%" height="1000px"></iframe>
+    </mat-card>
+</div>

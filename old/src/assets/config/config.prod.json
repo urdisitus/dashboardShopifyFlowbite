@@ -1,0 +1,9 @@
+{
+  "sfe": {
+    "urlBase": "https://apicloud.farmacorp.com/sfesucursal/",
+    "tenantCode": "FarmacorpSucursal",
+    "tenantKey": "0ead7d28cd7192bdae9fb1aed4dc4ebff73c90fe",
+    "userAuth": "adminsfe",
+    "userPassword": "QJC9fNwWO2"
+  }
+}

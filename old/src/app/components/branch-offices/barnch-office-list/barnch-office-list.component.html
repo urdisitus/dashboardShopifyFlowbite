@@ -1,0 +1,78 @@
+<div class="container-fluid">
+
+  <div class="row">
+    <div class="col-md-12">
+      <span><b style="font-size: 30px;">Sucursales</b></span>
+    </div>
+
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-block">
+          <div class="table-responsive">
+            <hr />
+            <mat-form-field>
+              <input matInput (keyup)="applyFilter($event.target.value)" placeholder="¿Que deseas buscar?">
+            </mat-form-field>
+
+            <div class="pull-right">
+              <button class="btn btn-primary" mat-button (click)="syncData()">Sincronizar</button>
+              <button class="btn btn-success" mat-button (click)="actualizarData();"> Actualizar </button>
+            </div>
+
+            <table mat-table [dataSource]="dataSource" matSort style="width:100%">
+
+              <ng-container matColumnDef="bodega">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Bodega </th>
+                <td mat-cell *matCellDef="let element"> {{element.keyBodega}} </td>
+              </ng-container>
+
+              <ng-container matColumnDef="nombre">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Nombre </th>
+                <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+              </ng-container>
+
+              <ng-container matColumnDef="descripcion">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Descripción </th>
+                <td mat-cell *matCellDef="let element"> {{element.descript}} </td>
+              </ng-container>
+
+              <ng-container matColumnDef="direccion">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Dirección </th>
+                <td mat-cell *matCellDef="let element"> {{element.address}} </td>
+              </ng-container>
+
+              <ng-container matColumnDef="ciudad">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Ciudad </th>
+                <td mat-cell *matCellDef="let element"> {{element.city}} </td>
+              </ng-container>
+
+              <ng-container matColumnDef="estado">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Estado</th>
+                <td mat-cell *matCellDef="let element"><span class="badge badge-{{getState(element).style}}">{{getState(element).description}}</span></td>
+              </ng-container>
+
+              <ng-container matColumnDef="opcion">
+                <th mat-header-cell *matHeaderCellDef>Opciones</th>
+                <td mat-cell *matCellDef="let element">
+                  <button mat-button [matMenuTriggerFor]="menu">...</button>
+                  <mat-menu #menu="matMenu">
+                    <button mat-menu-item [disabled]="element.status == 1" (click)="enable(element);">Activar</button>
+                    <button mat-menu-item [disabled]="element.status == 0" (click)="disable(element);">Desactivar</button>
+                    <button mat-menu-item (click)="modify(element);">Modificar</button>
+                    <button mat-menu-item (click)="poligono(element);">Cobertura</button>
+                  </mat-menu>
+
+                </td>
+              </ng-container>
+
+              <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumns;" class="element-row"></tr>
+            </table>
+            <mat-paginator [pageSizeOptions]="[5, 10, 20, 50, 100]" showFirstLastButtons></mat-paginator>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

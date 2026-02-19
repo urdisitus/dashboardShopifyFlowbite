@@ -1,0 +1,33 @@
+<!-- dialog-box.component.html -->
+<h1 mat-dialog-title><strong>{{action}}</strong></h1>
+<div mat-dialog-content>
+  <mat-form-field class="field">
+    <input [disabled]="canEditApplication" maxlength="100" placeholder="Aplicación" matInput
+      [(ngModel)]="local_data.application" [formControl]="appControl" [matAutocomplete]="auto"
+      (change)="loadNamespaces()">
+    <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFnApplication()">
+      <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+        {{option}}
+      </mat-option>
+    </mat-autocomplete>
+  </mat-form-field>
+  <mat-form-field class="field">
+    <input [disabled]="canEditKeys" maxlength="100" placeholder="Espacio" matInput [(ngModel)]="local_data.namespace"
+      [formControl]="nameControl" [matAutocomplete]="autoname">
+    <mat-autocomplete #autoname="matAutocomplete" [displayWith]="displayFnNamespace()">
+      <mat-option *ngFor="let option of filteredOptionsName | async" [value]="option">
+        {{option}}
+      </mat-option>
+    </mat-autocomplete>
+  </mat-form-field>
+  <mat-form-field class="field">
+    <input [disabled]="canEditKeys" maxlength="100" placeholder="Llave" matInput [(ngModel)]="local_data.key">
+  </mat-form-field>
+  <mat-form-field class="field">
+    <input maxlength="100" placeholder="Valor" matInput [(ngModel)]="local_data.value">
+  </mat-form-field>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="closeDialog()" mat-flat-button>Cancelar</button>
+  <button mat-button (click)="doAction()" color="primary">Guardar</button>
+</div>

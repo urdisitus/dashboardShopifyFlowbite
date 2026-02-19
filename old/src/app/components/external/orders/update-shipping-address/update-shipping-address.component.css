@@ -1,0 +1,11 @@
+agm-map {
+    height: 300px;
+}
+
+#pin {
+    max-width: 45px;
+    max-height: 45px;
+    position: absolute;
+    top: 120px;
+    left: 47%;
+}

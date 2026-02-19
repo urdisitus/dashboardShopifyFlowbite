@@ -1,0 +1,105 @@
+table {
+    width: 100%;
+}
+
+.container-table {
+    max-height: 600px;
+}
+
+.mat-column-name {
+    min-width: 100px;
+    text-align: center;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.mat-column-processedAtStr {
+    min-width: 150px;
+    text-align: center;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.mat-column-saleUser {
+  min-width: 50px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+.mat-column-customerCompleteName {
+    min-width: 200px;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.mat-column-email {
+    min-width: 150px;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.mat-column-localidad {
+    min-width: 100px;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.mat-column-customerPhone {
+    min-width: 150px;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.mat-column-totalPrice {
+    min-width: 100px;
+    text-align: right;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.mat-column-financialStatus {
+    min-width: 100px;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.mat-column-fulfillmentStatus {
+    min-width: 100px;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.mat-column-itemsCount {
+    min-width: 50px;
+    text-align: right;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.mat-column-invoice {
+    min-width: 200px;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.mat-column-tags {
+    min-width: 500px;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.mat-column-shippingAddress {
+    min-width: 50px;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.mat-column-shippingStatus {
+    min-width: 100px;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.modal-xl .modal-lg .modal-content {
+    height: 90VH;
+}

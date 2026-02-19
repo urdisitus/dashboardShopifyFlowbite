@@ -1,0 +1,74 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="widget-profile-1 card">
+                <div class="profile border bottom">
+                    <img class="mrg-top-30" src="assets/images/others/user.png" alt="">
+                    <h4 class="mrg-top-20 no-mrg-btm text-semibold">{{userInfo.completeName}}</h4>
+                    <p>{{userInfo.email}}</p>
+                </div>
+                <div class="pdd-horizon-30 pdd-vertical-20">
+                    <h5 class="text-semibold mrg-btm-5">Datos de Perfil</h5>
+                    <div class="col-md-12">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Nombres</label>
+                                    <input disabled="disabled" type="text" class="form-control" name="firstName" [value]="userInfo.firstName">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Apellidos</label>
+                                    <input disabled="disabled" type="text" class="form-control" name="lastName" [value]="userInfo.lastName">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Correo Electrónico</label>
+                                    <input disabled="disabled" type="email" class="form-control" name="email" [value]="userInfo.email">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Documento de Identidad</label>
+                                    <input disabled="disabled" type="text" class="form-control" name="documentIdentity" [value]="userInfo.documentoIdentidad">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Teléfono</label>
+                                    <input disabled="disabled" type="text" class="form-control" name="phone" [value]="userInfo.phone">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Celular</label>
+                                    <input disabled="disabled" type="text" class="form-control" name="cellPhone" [value]="userInfo.cellPhone">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Roles</label>
+                                    <input disabled="disabled" type="text" class="form-control" name="roles" [value]="rolesSelected">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Sucursal Asignada</label>
+                                    <input disabled="disabled" type="text" class="form-control" name="sucursal" [value]="branchOfficeSelected">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

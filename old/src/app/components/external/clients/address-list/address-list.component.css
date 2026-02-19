@@ -1,0 +1,35 @@
+.mat-column-actions {
+    min-width: 100px;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.mat-column-address1 {
+    min-width: 200px;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.mat-column-default {
+    min-width: 100px;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.mat-column-hasLatLng {
+    min-width: 100px;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.mat-column-phone {
+    min-width: 150px;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.mat-column-city {
+    min-width: 150px;
+    padding-left: 5px;
+    padding-right: 5px;
+}

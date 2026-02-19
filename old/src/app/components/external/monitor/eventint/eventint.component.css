@@ -1,0 +1,88 @@
+table {
+    width: 100%;
+}
+
+.mat-row {
+    vertical-align: baseline;
+}
+
+.margin-left {
+    margin-left: 10px;
+}
+
+.matFormField {
+    width: 100%;
+    margin-right: 10px;
+}
+
+.mat-column-keyBodega {
+    min-width: 50px;
+    text-align: center;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.mat-column-keySource {
+    min-width: 50px;
+    text-align: center;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.mat-column-codigoUnico {
+    min-width: 100px;
+    text-align: left;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.mat-column-tipoEventoIntegracion {
+    min-width: 100px;
+    text-align: left;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.mat-column-contadorEnvios {
+    text-align: right;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.mat-column-fechaUltimoEnvio {
+    min-width: 200px;
+    text-align: center;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.mat-column-estadoDesc {
+    min-width: 100px;
+    text-align: center;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.mat-column-fechaCreacion {
+    min-width: 200px;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.mat-column-event {
+    text-align: center;
+    min-width: 50px;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.mat-column-check {
+    text-align: center;
+    min-width: 50px;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.error {
+    background-color: #FFEBEE
+}

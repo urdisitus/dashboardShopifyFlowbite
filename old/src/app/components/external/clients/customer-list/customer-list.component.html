@@ -1,0 +1,77 @@
+<div class="mat-elevation-z8">
+    <mat-card>
+        <mat-form-field style="margin-right: 10px;">
+            <input matInput maxlength="20" (keypress)="keyPress($event)" (keyup.enter)="reload()" pattern="[0-9]*" inputmode="numeric" placeholder="Código Shopify" [(ngModel)]="param.id">
+            <button mat-button *ngIf="param.id" matSuffix mat-icon-button aria-label="Clear" (click)="param.id=''">
+              <mat-icon>close</mat-icon>                
+            </button>
+        </mat-form-field>
+        <mat-form-field style="margin-right: 10px;">
+            <input matInput maxlength="100" (keyup.enter)="reload()" placeholder="Nombre" [(ngModel)]="param.nombres">
+            <button mat-button *ngIf="param.nombres" matSuffix mat-icon-button aria-label="Clear" (click)="param.nombres=''">
+            <mat-icon>close</mat-icon>                
+          </button>
+        </mat-form-field>
+        <mat-form-field style="margin-right: 10px;">
+            <input matInput maxlength="100" (keyup.enter)="reload()" placeholder="Email" [(ngModel)]="param.email">
+            <button mat-button *ngIf="param.email" matSuffix mat-icon-button aria-label="Clear" (click)="param.email=''">
+          <mat-icon>close</mat-icon>                
+        </button>
+        </mat-form-field>
+        <mat-form-field style="margin-right: 10px;">
+            <input matInput maxlength="100" (keyup.enter)="reload()" placeholder="Teléfono" [(ngModel)]="param.phone">
+            <button mat-button *ngIf="param.phone" matSuffix mat-icon-button aria-label="Clear" (click)="param.phone=''">
+          <mat-icon>close</mat-icon>                
+        </button>
+        </mat-form-field>
+        <button mat-mini-fab color="primary" (click)="reload()" aria-label="Buscar" style="margin-right: 10px;">
+          <mat-icon>search</mat-icon>
+      </button>
+    </mat-card>
+</div>
+<div class="mat-elevation-z8">
+    <div class="table-responsive">
+        <div class="container-table">
+            <table mat-table [dataSource]="dataSource">
+                <ng-container matColumnDef="actions">
+                    <th mat-header-cell *matHeaderCellDef> </th>
+                    <td mat-cell *matCellDef="let element">
+                        <button type="button" class="btn btn-outline-primary btn-sm" (click)="openAddress(element);">Ver Direcciones</button>
+                    </td>
+                </ng-container>
+
+                <ng-container matColumnDef="verified_email">
+                    <th mat-header-cell *matHeaderCellDef> Correo Verificado </th>
+                    <td mat-cell *matCellDef="let element">
+                        <span *ngIf="element.verified_email === true">Si</span> <span *ngIf="!element.verified_email">No</span>
+                    </td>
+                </ng-container>
+
+                <ng-container matColumnDef="addresses">
+                    <th mat-header-cell *matHeaderCellDef> Direcciones </th>
+                    <td mat-cell *matCellDef="let element">
+                        <span>{{element.addresses.length}}</span>
+                    </td>
+                </ng-container>
+
+                <ng-container *ngFor="let item of autoColumns" matColumnDef="{{item.name}}">
+                    <th mat-header-cell *matHeaderCellDef> {{ item.title}} </th>
+                    <td mat-cell *matCellDef="let element"> {{element[item.name]}} </td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;" class="element-row"></tr>
+            </table>
+        </div>
+    </div>
+</div>
+<div class="mat-elevation-z8">
+    <mat-card>
+        <span style="margin-right: 10px;">
+          Cantidad de Registros: <b>{{dataSource.data.length}}</b>
+      </span>
+        <button mat-mini-fab color="primary" [disabled]="!param.loadMore" (click)="fetchNext()" aria-label="Siguiente">
+          <mat-icon>arrow_forward_ios</mat-icon>
+      </button>
+    </mat-card>
+</div>

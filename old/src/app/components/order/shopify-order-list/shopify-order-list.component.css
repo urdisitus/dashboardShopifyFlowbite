@@ -1,0 +1,45 @@
+table {
+    width: 100%;
+}
+
+.container-table {
+    max-height: 600px;
+}
+
+.mat-column-orderNumber {
+    min-width: 100px;
+    text-align: center;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.mat-column-createdAt {
+    min-width: 150px;
+    text-align: center;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.mat-column-customerName {
+    min-width: 200px;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.mat-column-totalPrice {
+    min-width: 100px;
+    text-align: right;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.mat-column-saleOrderId {
+    min-width: 100px;
+    padding-left: 5px;
+    padding-right: 5px;
+    text-align: center;
+}
+
+.modal-xl .modal-lg .modal-content {
+    height: 90VH;
+}

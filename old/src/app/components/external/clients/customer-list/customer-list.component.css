@@ -1,0 +1,71 @@
+.mat-column-shippingAddress {
+    min-width: 100px;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+table {
+    width: 100%;
+}
+
+.container-table {
+    max-height: 600px;
+}
+
+.mat-column-actions {
+    min-width: 100px;
+    text-align: center;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.mat-column-id {
+    min-width: 100px;
+    text-align: center;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.mat-column-first_name {
+    min-width: 150px;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.mat-column-last_name {
+    min-width: 150px;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.mat-column-phone {
+    min-width: 100px;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.mat-column-email {
+    min-width: 250px;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.mat-column-addresses {
+    min-width: 100px;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.mat-column-orders_count {
+    min-width: 100px;
+    text-align: right;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.mat-column-total_spent {
+    min-width: 150px;
+    text-align: right;
+    padding-left: 5px;
+    padding-right: 5px;
+}

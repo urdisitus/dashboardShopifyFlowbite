@@ -1,0 +1,22 @@
+<a *ngIf="menu.route" [class]="menu.aClass" [routerLink]="menu.route">
+  <span *ngIf="menu.icon" class="icon-holder">
+    <i [class]="menu.icon"></i>
+  </span>
+  <span class="title">{{menu.name}}</span>
+  <span *ngIf="menu.dropdown" class="arrow">
+    <i class="ti-angle-right"></i>
+  </span>
+</a>
+<a *ngIf="!menu.route" [class]="menu.aClass" href="javascript:void(0);">
+  <span *ngIf="menu.icon" class="icon-holder">
+    <i [class]="menu.icon"></i>
+  </span>
+  <span class="title">{{menu.name}}</span>
+  <span *ngIf="menu.dropdown" class="arrow">
+    <i class="ti-angle-right"></i>
+  </span>
+</a>
+<ul *ngIf="menu.dropdown" class="dropdown-menu">
+  <li *ngFor="let item of menu.childrens " appDashboardMenuItem [menu]="item" [class]="item.liClass"
+    [attr.routerLinkActive]="item.route ? 'active': null"></li>
+</ul>

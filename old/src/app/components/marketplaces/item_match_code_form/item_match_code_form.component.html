@@ -1,0 +1,58 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <h2 class="title">Códigos Equivalentes Entre Productos NAF y DMC</h2>
+    </div>
+  </div>
+  <form [formGroup]="form" class="example-form" (ngSubmit)="store()">
+    <div class="row">
+      <div class="col-md-4">
+        <mat-form-field class="example-full-width">
+          <mat-label>Marketplace</mat-label>
+          <mat-select id="companyId" name="companyId"  formControlName="companyId">
+            <mat-option *ngFor="let company of companies" [value]="company.id">
+              {{company.name}}
+            </mat-option>
+          </mat-select>
+          <mat-error *ngIf="companyId && companyId.hasError('required')">
+            La empresa es <strong>requerido</strong>
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div class="col-md-4">
+        <mat-form-field class="example-full-width">
+          <mat-label>Código Producto DMC</mat-label>
+          <input matInput id="code" name="code" formControlName="code" maxlength="100" required>
+          <mat-error *ngIf="code.hasError('required')">
+            El código producto DMC es <strong>requerido</strong>
+          </mat-error>
+          <mat-error *ngIf="code.hasError('maxlength')">
+            El código producto DMC no debe tener más de <strong>100 caracteres</strong>
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div class="col-md-4">
+        <mat-form-field class="example-full-width">
+          <mat-label>Código Producto NAF</mat-label>
+          <input matInput id="extCode" name="extCode" formControlName="extCode" maxlength="15" required>
+          <mat-error *ngIf="extCode.hasError('required')">
+            El código producto NAF es <strong>requerido</strong>
+          </mat-error>
+          <mat-error *ngIf="extCode.hasError('maxlength')">
+            El código producto NAF no debe tener más de <strong>15 caracteres</strong>
+          </mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <button mat-raised-button type="button" (click)="close()" aria-label="Cancelar">
+          Cancelar
+        </button>
+        <button mat-raised-button color="primary" style="margin-left: 10px;" type="submit" aria-label="Guardar">
+          <mat-icon>save</mat-icon> Guardar
+        </button>
+      </div>
+    </div>
+  </form>
+</div>

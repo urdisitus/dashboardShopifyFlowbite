@@ -1,0 +1,56 @@
+<div class="modal-header">
+    <h4 *ngIf="order.id" class="modal-title" id="modal-title">Dirección de Entrega - Orden : <b>{{order.name}}</b></h4>
+    <button type="button" class="close" aria-describedby="modal-title" (click)="dismissModal()">
+  <span aria-hidden="true">&times;</span>
+</button>
+</div>
+<div class="modal-body">
+    <agm-map [latitude]="center.lat" [zoom]="param.zoom" (mapClick)="placeMarker($event)" [longitude]="center.lng" [streetViewControl]="false" [mapTypeControl]="false" (mapReady)="mapReadyListener($event)">
+        <input id="search" class="form-control input-sm" style="width: 50%;" type="text" placeholder="Buscar ubicación...">
+        <agm-marker [markerDraggable]="true" [latitude]="param.latitud" [longitude]="param.longitud" (dragEnd)="markerDragEnd($event)"></agm-marker>
+    </agm-map>
+    <br>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label>Nombre</label>
+                <input maxlength="20" [(ngModel)]="param.name" type="text" placeholder="Ingresar Nombre" class="form-control">
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label>Apellido</label>
+                <input maxlength="20" [(ngModel)]="param.lastName" type="text" placeholder="Ingresar Apellido" class="form-control">
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label>Cuidad</label>
+                <ng-select2 (valueChanged)="onCityChange($event)" [(ngModel)]="param.city" [data]="dataBagToSelect2OptionData()" [placeholder]="'Seleccionar Ciudad'" [options]="statusConfig">
+                </ng-select2>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label>Teléfono</label>
+                <input maxlength="20" [(ngModel)]="param.phone" type="text" placeholder="Ingresar teléfono" class="form-control">
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="form-group">
+                <label>Dirección</label>
+                <input maxlength="300" [(ngModel)]="param.address" type="text" placeholder="Ingresar dirección" class="form-control">
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="form-group">
+                <label>Referencia</label>
+                <input maxlength="400" [(ngModel)]="param.reference" type="text" placeholder="Ingresar referencia" class="form-control">
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-outline-secondary" (click)="dismissModal()">Cancelar</button>
+    <button type="button" class="btn btn-primary" (click)="guardar()">Guardar</button>
+</div>

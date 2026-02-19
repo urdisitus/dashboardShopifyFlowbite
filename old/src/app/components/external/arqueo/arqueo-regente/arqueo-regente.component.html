@@ -1,0 +1,86 @@
+<div class="modal-header">
+    <h4 class="modal-title" id="modal-title">Arqueo Regente #<b>{{arqueo.id}}</b></h4>
+    <button type="button" class="close" aria-describedby="modal-title" (click)="dismissModal()">
+<span aria-hidden="true">&times;</span>
+</button>
+</div>
+<form #arqueoModel="ngForm">
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <b><label>Usuario Cajero</label></b><br>
+                            <label>{{turno.usuario}}</label>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <b><label>Fecha</label></b><br>
+                            <label>{{arqueo.fecha | date:'dd/MM/yyyy'}}</label>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <b><label>Observación</label></b><br>
+                            <label>{{arqueo.observacion | number:'1.2-2'}}</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <b><label>Total Cajero Bs</label></b><br>
+                            <label>{{arqueo.montoTotalBs | number:'1.2-2'}}</label>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <b><label>Sistema Bs</label></b><br>
+                            <label>{{arqueo.montoTotalSistema | number:'1.2-2'}}</label>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <b><label>Diferencia</label></b><br>
+                            <label>{{(diferencia) | number:'1.2-2'}}</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="table-overflow">
+                    <table class="table table-bordered table-hover table-sm">
+                        <thead>
+                            <tr>
+                                <th style="text-align: center">Tipo Pago</th>
+                                <th style="text-align: center">Monto Cajero</th>
+                                <th style="text-align: center">Monto Regente</th>
+                                <th style="text-align: center">Monto Sistema</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let pago of detalle">
+                                <td style="text-align: left;">{{getTipoPagoDescripcion(pago.tipoPagoId)}}</td>
+                                <td style="text-align: right">{{pago.montoBs | number:'1.2-2'}}</td>
+                                <td style="text-align: right"><input type="text" class="form-control" placeholder="Ingresar un monto válido." id="{{'pago_' + pago.id}}" name="{{'pago_' + pago.id}}" [(ngModel)]="pago.montoRegente" type="number" required pattern="^-?[0-9]\d*(\.\d+)?$"></td>
+                                <td style="text-align: right">{{pago.montoSistema | number:'1.2-2'}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="cierre">
+                    <mat-form-field class="new-width">
+                        <mat-label>Comentario</mat-label>
+                        <input matInput maxlength="500" placeholder="Ej. Cierre Ok..." #comentario2="ngModel" name="comentario" [(ngModel)]="comentario">
+                        <mat-hint align="start"><strong>Escribe algun comentario acerca del arqueo.</strong> </mat-hint>
+                        <mat-hint align="end">{{comentario2.value ? comentario2.value.length : '0'}} / 400</mat-hint>
+                    </mat-form-field>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-secondary" (click)="dismissModal()">Cancelar</button>
+        <button type="button" class="btn btn-{{arqueoModel.form.valid==false? 'danger' : 'success'}} pull-rigth" [disabled]="!arqueoModel.form.valid" (click)="guardar()">Guardar</button>
+    </div>
+</form>

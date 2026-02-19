@@ -1,0 +1,123 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <h2 class="title">Campañas de multiplicación de puntos</h2>
+    </div>
+  </div>
+  <form [formGroup]="form" class="example-form" (ngSubmit)="store()">
+    <div class="row">
+      <div class="col-md-4">
+        <mat-form-field class="example-full-width">
+          <mat-label>Nombre</mat-label>
+          <input matInput id="name" name="name" formControlName="name" maxlength="100" required>
+          <mat-error *ngIf="name.hasError('required')">
+            El nombre es <strong>requerido</strong>
+          </mat-error>
+          <mat-error *ngIf="name.hasError('maxlength')">
+            El nombre no debe tener más de <strong>100 caracteres</strong>
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div class="col-md-2">
+        <mat-form-field class="example-full-width">
+          <mat-label>Factor</mat-label>
+          <input matInput id="factor" name="factor" formControlName="factor" numeric decimals="0" min="0" required>
+          <mat-error *ngIf="name.hasError('required')">
+            El factor es <strong>requerido</strong>
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div class="col-md-3">
+        <mat-form-field class="example-full-width">
+          <mat-label>Fecha Inicio</mat-label>
+          <input matInput [matDatepicker]="startPicker" placeholder="Selecciona una fecha inicial" id="startDate"
+            name="startDate" formControlName="startDate">
+          <mat-datepicker-toggle matSuffix [for]="startPicker"></mat-datepicker-toggle>
+          <mat-datepicker #startPicker></mat-datepicker>
+        </mat-form-field>
+      </div>
+      <div class="col-md-3">
+        <mat-form-field class="example-full-width">
+          <mat-label>Fecha Fin</mat-label>
+          <input matInput [matDatepicker]="endPicker" placeholder="Selecciona una fecha final" id="endDate"
+            name="endDate" formControlName="endDate">
+          <mat-datepicker-toggle matSuffix [for]="endPicker"></mat-datepicker-toggle>
+          <mat-datepicker #endPicker></mat-datepicker>
+        </mat-form-field>
+      </div>
+      <div class="col-md-12">
+        <mat-form-field class="example-full-width">
+          <mat-label>Descripción</mat-label>
+          <textarea matInput id="descript" name="descript" formControlName="descript" maxlength="400"></textarea>
+          <mat-error *ngIf="descript.hasError('maxlength')">
+            La descripción no debe tener más de <strong>400 caracteres</strong>
+          </mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row" style="margin-bottom: 20px;">
+      <div class="col-sm-12">
+        <ng-container formArrayName="loyaltyCampaignRule">
+          <h4 class="title">Reglas</h4>
+          <button mat-raised-button color="primary" type="button" (click)="AddNewRow()"><mat-icon>add</mat-icon> Nueva
+            Regla</button>
+          <table #table mat-table [dataSource]="dataSource" style="width: 100%;">
+            <ng-container matColumnDef="loyaltyCampaignRuleTypeId">
+              <th mat-header-cell *matHeaderCellDef></th>
+              <td mat-cell *matCellDef="let element; let i = index" [formGroup]="element">
+                <mat-form-field style="width: 250px;">
+                  <mat-select formControlName="loyaltyCampaignRuleTypeId">
+                    <mat-option *ngFor="let type of ruleTypes" [value]="type.id">
+                      {{type.name}}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+            </ng-container>
+
+            <!-- descript Column -->
+            <ng-container matColumnDef="value">
+              <th mat-header-cell *matHeaderCellDef> Valor </th>
+              <td mat-cell *matCellDef="let element; let i = index" [formGroup]="element">
+                <mat-form-field style="width: 350px;">
+                  <mat-select formControlName="value">
+                    <mat-option *ngFor="let type of pagosTipo" [value]="type.descripcion">
+                      {{type.descripcion}}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+            </ng-container>
+
+            <ng-container matColumnDef="action">
+              <th mat-header-cell *matHeaderCellDef> Acción </th>
+              <td mat-cell *matCellDef="let element; let i = index" [formGroup]="element">
+                <button *ngIf="loyaltyCampaignRuleLength - 1 == i" mat-icon-button type="button"
+                  class="material-icons app-toolbar-menu delete-button" matTooltip="Nuevo" color="primary"
+                  (click)="AddNewRow()">
+                  <mat-icon>add</mat-icon>
+                </button>
+                <button mat-icon-button type="button" class="material-icons app-toolbar-menu delete-button"
+                  matTooltip="Delete" color="warn" (click)="DeleteSVO(i)">
+                  <mat-icon>delete</mat-icon>
+                </button>
+              </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+          </table>
+        </ng-container>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <button mat-raised-button type="button" (click)="close()" aria-label="Cancelar">
+          Cancelar
+        </button>
+        <button mat-raised-button color="primary" style="margin-left: 10px;" type="submit" aria-label="Guardar">
+          <mat-icon>save</mat-icon> Guardar
+        </button>
+      </div>
+    </div>
+  </form>
+</div>

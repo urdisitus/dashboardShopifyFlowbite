@@ -1,0 +1,41 @@
+.mat-column-idShopify {
+    min-width: 180px;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.mat-column-idCliente {
+    min-width: 100px;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.mat-column-nombres {
+    min-width: 150px;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.mat-column-apellidos {
+    min-width: 150px;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.mat-column-cedula {
+    min-width: 100px;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.mat-column-email {
+    min-width: 200px;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.mat-column-event {
+    min-width: 150px;
+    padding-left: 5px;
+    padding-right: 5px;
+}

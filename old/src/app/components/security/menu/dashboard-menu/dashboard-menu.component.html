@@ -1,0 +1,9 @@
+<!--mrg-top-30-->
+<ul class="side-nav-menu scrollable">
+    <li>
+        <a class="a-active-menu">
+            <h1 class="title"><b>{{systemName}}</b></h1>
+        </a>
+    </li>
+    <li *ngFor="let item of menu" appDashboardMenuItem [menu]="item" [class]="item.liClass" [attr.routerLinkActive]="item.route ? 'active': null"></li>
+</ul>

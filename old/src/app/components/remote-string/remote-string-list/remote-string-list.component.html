@@ -1,0 +1,84 @@
+<!-- app.component.html -->
+<div class="container text-center">
+  <h4>Etiquetas</h4>
+  <div class="row">
+    <div class="col-md-3">
+      <mat-form-field>
+        <mat-label>Aplicación</mat-label>
+        <mat-select [(value)]="application" (selectionChange)="onApplicationChange($event)">
+          <mat-option value="">
+            Todas
+          </mat-option>
+          <mat-option *ngFor="let food of applications" [value]="food">
+            {{food}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div class="col-md-3">
+      <mat-form-field>
+        <mat-label>Nombre de espacio</mat-label>
+        <mat-select [(value)]="namespace">
+          <mat-option value="">
+            Todas
+          </mat-option>
+          <mat-option *ngFor="let food of namespaces" [value]="food">
+            {{food}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div class="col-md-3">
+      <mat-form-field>
+        <mat-label>Criterio</mat-label>
+        <input maxlength="100" placeholder="Criterio de búsqueda" matInput [formControl]="criteriaControl">
+      </mat-form-field>
+    </div>
+    <div class="col-md-3">
+      <button mat-button (click)="list()" mat-flat-button color="primary">Listar</button>
+      <a *ngIf="downloadJsonName && dataSource && dataSource.length > 0" class="btn btn-clear" title="Download JSON"
+        [href]="downloadJsonHref" [download]="downloadJsonName"> Download {{downloadJsonName}}</a>
+      <button style="margin-left: 5px;" mat-button (click)="openDialog('Nuevo',{})" mat-flat-button
+        color="primary">Agregar +</button>
+    </div>
+  </div>
+
+  <table mat-table [dataSource]="dataSource" #mytable style="width: 100%;" class="my-table mat-elevation-z8">
+    <!-- Name Column -->
+    <ng-container matColumnDef="application">
+      <th mat-header-cell *matHeaderCellDef> Aplicación </th>
+      <td mat-cell *matCellDef="let element"> {{element.application}} </td>
+    </ng-container>
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="namespace">
+      <th mat-header-cell *matHeaderCellDef> Espacio </th>
+      <td mat-cell *matCellDef="let element"> {{element.namespace}} </td>
+    </ng-container>
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="key">
+      <th mat-header-cell *matHeaderCellDef> Llave </th>
+      <td mat-cell *matCellDef="let element"> {{element.key}} </td>
+    </ng-container>
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="value">
+      <th mat-header-cell *matHeaderCellDef> Valor </th>
+      <td mat-cell *matCellDef="let element"> {{element.value}} </td>
+    </ng-container>
+
+
+    <!-- Action Column -->
+    <ng-container matColumnDef="action">
+      <th mat-header-cell *matHeaderCellDef> Acción </th>
+      <td mat-cell *matCellDef="let element" class="action-link">
+        <button mat-button (click)="openDialog('Editar',element)" mat-flat-button color="primary">Editar</button>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+
+</div>

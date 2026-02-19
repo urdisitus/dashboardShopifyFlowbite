@@ -1,0 +1,26 @@
+<div class="modal-header">
+  <h4 class="modal-title" id="modal-title">Sucusal : {{bodega.keyBodega}}</h4>
+  <button type="button" class="close" aria-describedby="modal-title" (click)="dismissModal()">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<form #reportModel="ngForm">
+  <div class="modal-body">
+    <div class="row">
+      <div class="col-sm-12">
+
+        <agm-map [latitude]="bodega.latitud" [zoom]="zoom" [longitude]="bodega.longitud" (mapReady)="onMapReady($event)">
+          <agm-marker [latitude]="bodega.latitud" [longitude]="bodega.longitud"></agm-marker>
+          <agm-polygon [paths]="polygon.poligon"[fillColor]="'red'"></agm-polygon>
+        </agm-map>
+
+
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-secondary" (click)="dismissModal()">Cancelar</button>
+    <button type="button" class="btn btn-{{polygonCoords.length == 0? 'danger' : 'success'}} pull-rigth" [disabled]="polygonCoords.length == 0" (click)="guardar()">Guardar</button>
+  </div>
+</form>
+

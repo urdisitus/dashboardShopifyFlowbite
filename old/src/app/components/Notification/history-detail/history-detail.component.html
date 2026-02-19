@@ -1,0 +1,59 @@
+<div class="container-fluid">
+
+  <div class="row">
+    <div class="col-md-12">
+      <span><b style="font-size: 30px;">Notificación/Histórico/Detalle</b></span>
+    </div>
+
+    <div class="col-md-12">
+      <mat-card>
+        <a routerLink="/notification/history/{{IdCampania}}">Ir a histórico</a>
+        <p></p>
+        <div class="table-responsive">
+
+          <mat-table [dataSource]="_notiDataSource" style="width:100%">
+            <!-- Position Column -->
+            <ng-container matColumnDef="osType">
+              <th mat-header-cell *matHeaderCellDef> S.O.</th>
+              <td mat-cell *matCellDef="let element"> {{element.osType}} </td>
+            </ng-container>
+
+            <!-- Name Column -->
+            <ng-container matColumnDef="version">
+              <th mat-header-cell *matHeaderCellDef> Versión </th>
+              <td mat-cell *matCellDef="let element"> {{element.version}} </td>
+            </ng-container>
+
+            <!-- Name Column -->
+            <ng-container matColumnDef="email">
+              <th mat-header-cell *matHeaderCellDef> Email </th>
+              <td mat-cell *matCellDef="let element"> {{element.email}} </td>
+            </ng-container>
+
+            <!-- Name Column -->
+            <ng-container matColumnDef="phone">
+              <th mat-header-cell *matHeaderCellDef> Celular </th>
+              <td mat-cell *matCellDef="let element"> {{element.phone}} </td>
+            </ng-container>
+
+            <!-- Name Column -->
+            <ng-container matColumnDef="success">
+              <th mat-header-cell *matHeaderCellDef> Enviado </th>
+              <td mat-cell *matCellDef="let element"> <span class="{{element.success? 'exito':'falla'}}">{{element.success? 'Success':'Fail'}}</span> </td>
+            </ng-container>
+
+            <ng-container matColumnDef="sended">
+              <th mat-header-cell *matHeaderCellDef>Fecha envío</th>
+              <td mat-cell *matCellDef="let element"> {{element.sended | date : 'M/d/yy, h:mm a'}} </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;" class="element-row"></tr>
+          </mat-table>
+          <mat-paginator [length]="_notiDataSource?.resultPage?.totalFiltered" [pageSize]="initialSize" [pageSizeOptions]="[10, 50, 100, 200, 500, 1000]"></mat-paginator>
+        </div>
+      </mat-card>
+    </div>
+  </div>
+</div>
+

@@ -1,0 +1,90 @@
+<div class="modal-header">
+  <h4 *ngIf="order.id" class="modal-title" id="modal-title">Datos de Facturación - Orden : <b>{{order.name}}</b></h4>
+  <button type="button" class="close" aria-describedby="modal-title" (click)="dismissModal()">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+
+  <div id="dosificacion" *ngIf="tipoFacturacion==1">
+    <mat-form-field style="margin-right: 10px;">
+      <input matInput maxlength="20" placeholder="Ingresa Nit a facturar" [(ngModel)]="param.nit">
+      <button mat-button *ngIf="param.nit" matSuffix mat-icon-button aria-label="Clear" (click)="param.nit=''">
+        <mat-icon>close</mat-icon>
+      </button>
+    </mat-form-field>
+    <mat-form-field style="margin-right: 10px;">
+      <input matInput maxlength="50" placeholder="Ingresa Nombre a facturar" [(ngModel)]="param.nombre">
+      <button mat-button *ngIf="param.nombre" matSuffix mat-icon-button aria-label="Clear" (click)="param.nombre=''">
+        <mat-icon>close</mat-icon>
+      </button>
+    </mat-form-field>
+  </div>
+
+  <div id="sfe" *ngIf="tipoFacturacion==2">
+    <mat-form-field class="fullWidth">
+      <mat-label>Tipo de documento</mat-label>
+      <mat-select [(value)]="param.idTipoDocumento?param.idTipoDocumento:tipoList[0].id" (selectionChange)="selectTipo($event.value)" [(ngModel)]="param.idTipoDocumento">
+        <mat-option *ngFor="let item of tipoList" [value]="item.id">{{item.descript}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field class="fullWidth">
+      <input matInput maxlength="20" placeholder="Documento" type="text" [(ngModel)]="param.documento">
+      <button mat-button *ngIf="param.documento" matSuffix mat-icon-button aria-label="Clear" (click)="param.documento=''">
+        <mat-icon>close</mat-icon>
+      </button>
+    </mat-form-field>
+
+    <mat-form-field class="fullWidth">
+      <input matInput maxlength="20" placeholder="Complemento" [(ngModel)]="param.complemento" [disabled]="param.idTipoDocumento != 1">
+      <button mat-button *ngIf="param.complemento" matSuffix mat-icon-button aria-label="Clear" (click)="param.complemento=''">
+        <mat-icon>close</mat-icon>
+      </button>
+    </mat-form-field>
+
+    <mat-form-field class="fullWidth">
+      <input matInput maxlength="50" placeholder="Nombre" [(ngModel)]="param.nombre">
+      <button mat-button *ngIf="param.nombre" matSuffix mat-icon-button aria-label="Clear" (click)="param.nombre=''">
+        <mat-icon>close</mat-icon>
+      </button>
+    </mat-form-field>
+
+    <mat-form-field class="fullWidth">
+      <input matInput maxlength="50" placeholder="Correo" type="email" [(ngModel)]="param.correo">
+      <button mat-button *ngIf="param.correo" matSuffix mat-icon-button aria-label="Clear" (click)="param.correo=''">
+        <mat-icon>close</mat-icon>
+      </button>
+    </mat-form-field>
+
+    <mat-form-field class="fullWidth">
+      <input matInput maxlength="50" placeholder="Teléfono" type="number" [(ngModel)]="param.telefono">
+      <button mat-button *ngIf="param.telefono" matSuffix mat-icon-button aria-label="Clear" (click)="param.telefono=''">
+        <mat-icon>close</mat-icon>
+      </button>
+    </mat-form-field>
+
+    <div class="row" *ngIf="cardnumbers">
+      <div class="col-md-6">
+        <mat-form-field class="fullWidth">
+          <input matInput maxlength="4" placeholder="Tarjeta (4 primeros)" (keypress)="keyPress($event)"  pattern="[0-9]*" inputmode="numeric" [(ngModel)]="cardNumberFirst">
+          <button mat-button *ngIf="cardNumberFirst" matSuffix mat-icon-button aria-label="Clear" (click)="cardNumberFirst=''">
+            <mat-icon>close</mat-icon>
+          </button>
+        </mat-form-field>
+      </div>
+      <div class="col-md-6">
+        <mat-form-field class="fullWidth">
+          <input matInput maxlength="4" placeholder="Tarjeta (4 últimos)" (keypress)="keyPress($event)"  pattern="[0-9]*" inputmode="numeric" [(ngModel)]="cardNumberSecond">
+          <button mat-button *ngIf="cardNumberSecond" matSuffix mat-icon-button aria-label="Clear" (click)="cardNumberSecond=''">
+            <mat-icon>close</mat-icon>
+          </button>
+        </mat-form-field>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-outline-secondary" (click)="dismissModal()">Cancelar</button>
+  <button type="button" class="btn btn-outline-primary pull-rigth" (click)="guardar()">Guardar</button>
+</div>

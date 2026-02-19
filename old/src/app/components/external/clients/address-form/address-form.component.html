@@ -1,0 +1,54 @@
+<div class="modal-header">
+    <h4 *ngIf="data.id" class="modal-title" id="modal-title">Dirección de Cliente <b>{{data.id}}</b></h4>
+    <button type="button" class="close" aria-describedby="modal-title" (click)="dismissModal()">
+<span aria-hidden="true">&times;</span>
+</button>
+</div>
+<div class="modal-body">
+    <div *ngIf="false" class="form-group">
+        <label>Búsqueda de Dirección</label>
+        <app-autocomplete (setAddress)="getAddressAuto($event)" adressType="geocode"></app-autocomplete>
+    </div>
+    <agm-map [latitude]="center.lat" [zoom]="param.zoom" (mapClick)="placeMarker($event)" [longitude]="center.lng" [streetViewControl]="false" [mapTypeControl]="false" (mapReady)="mapReadyListener($event)">
+        <input id="search" class="form-control input-sm" style="width: 50%;" type="text" placeholder="Buscar ubicación...">
+        <agm-marker [markerDraggable]="true" [latitude]="param.latitud" [longitude]="param.longitud" (dragEnd)="markerDragEnd($event)"></agm-marker>
+    </agm-map>
+    <br>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-group">
+                <label>Cuidad</label>
+                <ng-select2 (valueChanged)="onCityChange($event)" [(ngModel)]="param.city" [data]="dataBagToSelect2OptionData()" [placeholder]="'Seleccionar Ciudad'" [options]="statusConfig">
+                </ng-select2>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <label>Teléfono</label>
+                <input maxlength="20" [(ngModel)]="param.phone" type="text" placeholder="Ingresar teléfono" class="form-control">
+            </div>
+        </div>
+        <div class="col-md-4">
+            <mat-checkbox class="example-margin" [(ngModel)]="param.default" style="margin-right: 10px;">Por Defecto Entrega</mat-checkbox>
+        </div>
+        <div class="col-md-12">
+            <div class="form-group">
+                <label>Dirección</label>
+                <div class="form-inline">
+                    <input maxlength="300" style="width: 75%; margin-right: 10px;" [(ngModel)]="param.address" type="text" placeholder="Ingresar dirección" class="form-control">
+                    <a href="javascript:void(0)" (click)="getCurrentAddress()" class="btn btn-default btn-sm">Obtener dirección</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="form-group">
+                <label>Referencia</label>
+                <input maxlength="400" [(ngModel)]="param.reference" type="text" placeholder="Ingresar referencia" class="form-control">
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-outline-secondary" (click)="dismissModal()">Cancelar</button>
+    <button type="button" class="btn btn-primary" (click)="store()">Guardar</button>
+</div>

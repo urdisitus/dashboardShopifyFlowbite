@@ -1,0 +1,37 @@
+<div class="modal-header">
+  <h4 class="modal-title" id="modal-title">Reconteo preapertura</h4>
+  <button type="button" class="close" aria-describedby="modal-title" (click)="modal.dismiss('Cross click')">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  <form #preaperturaModel="ngForm">
+
+    <p>
+      <label>Preapertura número :</label>
+      <input class="form-control" placeholder="Preapertura número" type="text" #id="ngModel" name="id" [(ngModel)]="idPreapertura" required readonly />
+      <span class="badge badge-danger" *ngIf="!id.valid && id.touched">Debe introducir un código de preapertura</span>
+    </p>
+    <p>
+      <label>Cantidad de sticker devueltos :</label>
+      <input class="form-control" placeholder="Sticker devueltos" type="number" #cantidad="ngModel" name="cantidad" [(ngModel)]="cantidadReconteo" required pattern="[0-9]*" />
+      <span class="badge badge-danger" *ngIf="!cantidad.valid && cantidad.touched">Debe introducir una cantidad</span>
+
+    </p>
+
+    <p *ngFor="let canje of cantCanje">
+      <label>{{'Cantidad ' + canje.descripcion + ' devueltos :' }} </label>
+      <input class="form-control" placeholder="{{canje.descripcion + ' devueltos'}}" type="number" id="{{'cantidad_' + canje.canjeModalidadId}}" name="{{'cantidad_' + canje.canjeModalidadId}}" [(ngModel)]="canje.cantCartillasCierreRegente" required pattern="[0-9]*" />
+      <span class="badge badge-danger" *ngIf="!preaperturaModel.controls['cantidad_' + canje.canjeModalidadId].valid && preaperturaModel.controls['cantidad_' + canje.canjeModalidadId].touched">Debe introducir una cantidad para {{canje.descripcion}}.</span>
+    </p>
+  </form>
+
+</div>
+
+<div class="modal-footer justify-content-between">
+  <div>
+    <button type="button" class="btn btn-outline-secondary" (click)="modal.dismiss('cancel click')">Cancel</button>
+    <button type="button" class="btn btn-{{preaperturaModel.form.valid==false? 'danger' : 'success'}}" [disabled]="!preaperturaModel.form.valid" (click)=" modal.close(cantidadReconteo)">Guardar</button>
+
+  </div>
+</div>

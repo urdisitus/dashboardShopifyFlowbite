@@ -1,0 +1,13 @@
+<div class="modal-header">
+    <h4 class="modal-title" id="modal-title">Evento de integración</h4>
+    <button type="button" class="close" aria-describedby="modal-title" (click)="modal.dismiss('Cross click')">
+  <span aria-hidden="true">&times;</span>
+</button>
+</div>
+<div #content id="content" class="modal-body">
+    <pre>{{dato | json}}</pre>
+</div>
+
+<div class="modal-footer justify-content-between">
+    <button type="button" class="btn btn-success" (click)=" modal.close()">Aceptar</button>
+</div>

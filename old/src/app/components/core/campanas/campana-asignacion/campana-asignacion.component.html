@@ -1,0 +1,35 @@
+<div class="modal-header">
+    <h4 class="modal-title" id="modal-title">Asignación de Stickers</h4>
+    <button type="button" class="close" aria-describedby="modal-title" (click)="dismissModal()">
+<span aria-hidden="true">&times;</span>
+</button>
+</div>
+<form #reportModel="ngForm" class="new-arqueo">
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="alert alert-warning" role="alert">
+                    <p class="mb-0">Cantidad asignada resultante <b>{{cantAsignada}}</b></p>
+                </div>
+                <mat-form-field class="new-width">
+                    <mat-label>Cantidad</mat-label>
+                    <input matInput (change)="onCantidadChange()" placeholder="Ingrese la Cantidad" (keypress)="keyPress($event)" pattern="^([-+0-9]+)" inputmode="numeric" type="number" #valueField="ngModel" name="valueField" [(ngModel)]="value" required />
+                    <mat-hint align="end">Stickers</mat-hint>
+                    <mat-error *ngIf="(!valueField.valid && valueField.touched) || value === 0">
+                        Debe introducir una cantidad mayor a 0.
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field class="new-width">
+                    <mat-label>Comentario</mat-label>
+                    <input matInput maxlength="500" placeholder="Ej. Se quedó sin stickers..." #comentarioField="ngModel" name="comentarioField" [(ngModel)]="comentario">
+                    <mat-hint align="start"><strong>Escribe algun comentario</strong> </mat-hint>
+                    <mat-hint align="end">{{comentarioField.value.length}} / 500</mat-hint>
+                </mat-form-field>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-secondary" (click)="dismissModal()">Cancelar</button>
+        <button type="button" class="btn btn-{{reportModel.form.valid==false? 'danger' : 'success'}} pull-rigth" [disabled]="!reportModel.form.valid" (click)="guardar()">Guardar</button>
+    </div>
+</form>

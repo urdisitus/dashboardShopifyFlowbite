@@ -1,0 +1,12 @@
+.cdk-global-overlay-wrapper, .cdk-overlay-container {
+  z-index: 10000 !important;
+}
+
+.fullWidth {
+  width: 100%;
+}
+
+
+.mediaWidth {
+  width: 50%;
+}

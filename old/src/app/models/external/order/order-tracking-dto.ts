@@ -1,0 +1,20 @@
+export class OrderTrackingDto{
+    id?:string;
+    originIcon?:string;
+    keyBodega?:string;
+    nombreSucursal?:string;
+    direccionSucursal?:string;
+    originLat?:number;
+    originLng?:number;
+    ciudad?:string;
+    telefono?:string;
+    destIcon?:string;
+    ordenName?:string;
+    provider?:string;
+    trackingLink?:string;
+    customerCompleteName?:string;
+    destLat?:number;
+    destLng?:number;
+    agenteEntregaId?:string;
+    agenteEntregaIcon?:string;
+}

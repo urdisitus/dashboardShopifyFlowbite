@@ -1,0 +1,33 @@
+import { AuthBaseService } from "src/app/services/auth.base.service";
+import { Injectable } from "@angular/core";
+import { HttpClient } from "@angular/common/http";
+import { SessionProvider } from "src/app/providers/session/session.provider";
+import { ExecutingService } from "src/app/services/shared/executing.service";
+import { ApiResponse } from "src/app/services/base.service";
+import { OrderListItemDto } from "src/app/models/external/order/order-list-item-dto";
+import { NitNombreOrderParam } from "src/app/models/external/order/nit-nombre-order-param";
+
+@Injectable()
+export class ServiceUpdNitNombreOrder extends AuthBaseService {
+
+    apiMethod: string = '/api/v1.0/order/nit_nombre_order';
+
+    constructor(
+        public http: HttpClient,
+        public sessionProvider: SessionProvider,
+        public executingService: ExecutingService
+    ) {
+        super(http, sessionProvider, executingService);
+    }
+
+    update(param: NitNombreOrderParam): Promise<OrderListItemDto> {
+        return new Promise((resolve) => {
+            this.postAsJson<ApiResponse<OrderListItemDto>>({
+                method: this.apiMethod,
+                param: param
+            }).then((response: ApiResponse<OrderListItemDto>) => {
+                resolve(response.data);
+            });
+        });
+    }
+}

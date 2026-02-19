@@ -1,0 +1,304 @@
+<div class="container-fluid">
+
+  <div class="row">
+    <div class="col-md-12">
+      <span><b style="font-size: 30px;">Orden : {{data.extName}} </b></span>
+    </div>
+
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-block">
+
+          <div class="row">
+            <div class="col-md-12">
+
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="pull-right">
+
+               
+                <button class="btn btn-success" mat-button (click)="obtener();"> Actualizar </button>
+
+                <button class="btn btn-secondary" mat-button data-toggle="collapse" data-target="#collapseOrder" aria-expanded="false" aria-controls="collapseOrder">
+                  Ver todos los datos de la orden
+                </button>
+
+              </div>
+            </div>
+          </div>
+          <div class="collapse" id="collapseOrder">
+            <div class="card card-body">
+              <div *ngIf="data" class="container">
+                <h2 class="my-4">Datos de la orden</h2>
+
+                <div class="form-group row" *ngFor="let attr of getMainAttributes()">
+                  <label class="col-sm-3 col-form-label">{{ attr[0] }}</label>
+                  <div class="col-sm-9">
+                    <input type="text" class="form-control" [value]="attr[1]" readonly>
+                  </div>
+                </div>
+
+                <h3 class="my-4">Delivery</h3>
+                <ul class="list-group">
+                  <li class="list-group-item" *ngFor="let detail of data?.saleOrderDelivery | keyvalue">
+                    <strong>{{ detail.key }}:</strong> {{ detail.value }}
+                  </li>
+                </ul>
+
+                <h3 class="my-4">Carrito</h3>
+                <div *ngFor="let detail of data?.saleOrderDetail">
+                  <ul class="list-group mb-3">
+                    <li class="list-group-item" *ngFor="let item of detail | keyvalue">
+                      <strong>{{ item.key }}:</strong> {{ item.value }}
+                    </li>
+                  </ul>
+                </div>
+
+                <h3 class="my-4">Pagos</h3>
+                <div *ngFor="let payment of data?.saleOrderPayment">
+                  <ul class="list-group mb-3">
+                    <li class="list-group-item" *ngFor="let item of payment | keyvalue">
+                      <strong>{{ item.key }}:</strong> {{ item.value }}
+                    </li>
+                  </ul>
+                </div>
+
+                <h3 class="my-4">Descuentos</h3>
+                <div *ngFor="let discount of data?.saleOrderDiscount">
+                  <ul class="list-group mb-3">
+                    <li class="list-group-item" *ngFor="let item of discount | keyvalue">
+                      <strong>{{ item.key }}:</strong> {{ item.value }}
+                    </li>
+                  </ul>
+                </div>
+
+                <h3 class="my-4">Detalle Descuentos</h3>
+                <div *ngFor="let discount of data?.saleOrderDetailDiscount">
+                  <ul class="list-group mb-3">
+                    <li class="list-group-item" *ngFor="let item of discount | keyvalue">
+                      <strong>{{ item.key }}:</strong> {{ item.value }}
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+          </div>
+          <br />
+          <div class="row">
+
+            <div class="col">
+              <label class="col-sm-8 col-form-label"># Orden</label>
+              <div class="col-sm-12">
+                <input type="text" class="form-control" [value]="data.extName" readonly>
+              </div>
+            </div>
+            <div class="col">
+              <label class="col-sm-8 col-form-label">Fecha</label>
+              <div class="col-sm-12">
+                <input type="text" class="form-control" [value]="data.createUtcDate" readonly>
+              </div>
+            </div>
+            <div class="col">
+              <label class="col-sm-8 col-form-label">Bodega</label>
+              <div class="col-sm-12">
+                <input type="text" class="form-control" [value]="data.keyBodega" readonly>
+              </div>
+            </div>
+            <div class="col">
+              <label class="col-sm-8 col-form-label">Estado</label>
+              <div class="col-sm-12">
+                <input type="text" class="form-control" [value]="data.stateName" readonly>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col">
+              <label class="col-sm-8 col-form-label">Observación</label>
+              <div class="col-sm-12">
+                <input type="text" class="form-control" [value]="data.observation" readonly>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+
+            <div class="col-sm-6">
+              <label class="col-sm-8 col-form-label">Email cliente</label>
+              <div class="col-sm-12">
+                <input type="text" class="form-control" [value]="data.customerEmail" readonly>
+              </div>
+            </div>
+            <div class="col-sm-3">
+              <label class="col-sm-8 col-form-label">Nombre cliente</label>
+              <div class="col-sm-12">
+                <input type="text" class="form-control" [value]="data.customerName" readonly>
+              </div>
+            </div>
+            <div class="col-sm-3">
+              <label class="col-sm-8 col-form-label">Teléfono cliente</label>
+              <div class="col-sm-12">
+                <input type="text" class="form-control" [value]="data.customerPhone" readonly>
+              </div>
+            </div>
+
+          </div>
+          <div class="row">
+
+            <div class="col">
+              <label class="col-sm-8 col-form-label">Sub Total</label>
+              <div class="col-sm-12">
+                <input type="text" class="form-control" [value]="data.subtotalAmount" readonly>
+              </div>
+            </div>
+            <div class="col">
+              <label class="col-sm-8 col-form-label">% Descuento</label>
+              <div class="col-sm-12">
+                <input type="text" class="form-control" [value]="data.discountPercent" readonly>
+              </div>
+            </div>
+            <div class="col">
+              <label class="col-sm-8 col-form-label">Monto Descuento</label>
+              <div class="col-sm-12">
+                <input type="text" class="form-control" [value]="getFormattedAmount(data.discountAmount)" readonly>
+              </div>
+            </div>
+            <div class="col">
+              <label class="col-sm-8 col-form-label">Total</label>
+              <div class="col-sm-12">
+                <input type="text" class="form-control" [value]="getFormattedAmount(data.totalAmount)" readonly>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+
+            <div class="col">
+              <label class="col-sm-12 col-form-label">Fecha de preparación</label>
+              <div class="col-sm-12">
+                <input type="text" class="form-control" [value]="data.preparationDate" readonly>
+              </div>
+            </div>
+            <div class="col">
+              <label class="col-sm-8 col-form-label">Usuario preparo</label>
+              <div class="col-sm-12">
+                <input type="text" class="form-control" [value]="data.preparationUserName" readonly>
+              </div>
+            </div>
+            <div class="col">
+              <label class="col-sm-8 col-form-label">Origen pedido</label>
+              <div class="col-sm-12">
+                <input type="text" class="form-control" [value]="data.keyAppOrigin" readonly>
+              </div>
+            </div>
+            <div class="col">
+              <label class="col-sm-8 col-form-label">Versión</label>
+              <div class="col-sm-12">
+                <input type="text" class="form-control" [value]="data.appOriginVersion" readonly>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <table class="table mt-5">
+              <thead>
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col"></th>
+                  <th scope="col">SKU</th>
+                  <th scope="col">Descripción</th>
+                  <th scope="col">Precio</th>
+                  <th scope="col">Cant.</th>
+                  <th scope="col">Descuento</th>
+                  <th scope="col">Total</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let detail of data?.saleOrderDetail">
+                  <th scope="row">{{ detail.lineIndex}}</th>
+                  <td>
+                    <img *ngIf="detail.erpProductCode != 'DELIVERY GRL'" [src]="detail.productImageUrl" alt="{{ detail.productName }}" class="img-fluid" style="max-width: 50px; height: auto;">
+                  </td>
+                  <td>{{ detail.erpProductCode}}</td>
+                  <td>{{ detail.productName}}</td>
+                  <td>Bs.{{ detail.productUnitPrice}}</td>
+                  <td>{{ detail.quantity}}</td>
+                  <td>{{ detail.discountAmount}}</td>
+                  <td>Bs.{{ detail.totalAmount}}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="row">
+            <div class="col">
+              <table class="table table-borderless">
+                <thead>
+                  <tr>
+                    <th scope="col">Forma pago</th>
+                    <th scope="col">Monto</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let payment of data?.saleOrderPayment">
+                    <th scope="row">{{payment.appdestinationPaymentTypeCode}}</th>
+                    <td>Bs.{{payment.amount}}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="col">
+
+
+            </div>
+          </div>
+          <div class="row">
+            <div class="col">
+              <table class="table table-borderless">
+                <thead>
+                  <tr>
+                    <th scope="col" class="thead-col-50">Información delivery</th>
+                    <th scope="col" class="thead-col-50"></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <th scope="row" class="tbody-col-25">Dirección</th>
+                    <td class="tbody-col-75">{{data?.saleOrderDelivery.destinationAddress}}</td>
+                  </tr>
+                  <tr>
+                    <th scope="row" class="tbody-col-25">Proveedor</th>
+                    <td class="tbody-col-75">{{data?.saleOrderDelivery.provider}}</td>
+                  </tr>
+                  <tr>
+                    <th scope="row" class="tbody-col-25">Estado</th>
+                    <td class="tbody-col-75">{{data?.saleOrderDelivery.stateName}}</td>
+                  </tr>
+                  <tr>
+                    <th scope="row" class="tbody-col-25">Driver</th>
+                    <td class="tbody-col-75">{{data?.saleOrderDelivery.driverUserName}}</td>
+                  </tr>
+                  <tr>
+                    <th scope="row" class="tbody-col-25">Exito</th>
+                    <td class="tbody-col-75">{{data?.saleOrderDelivery.success}}</td>
+                  </tr>
+                  <tr>
+                    <th scope="row" class="tbody-col-25">Tracking Link</th>
+                    <td class="tbody-col-75"><a [href]="data.saleOrderDelivery.trackingLink" target="_blank">{{data?.saleOrderDelivery.trackingLink}}</a></td>
+                  </tr>
+                  <tr>
+                    <td colspan="2" ><button class="btn btn-success" *ngIf="data.status == 4" mat-button (click)="marcarEntregado();"> Marca como entregado</button></td>                    
+                  </tr>
+                </tbody>
+              </table>             
+            </div>
+            <div class="col">
+              <agm-map [latitude]="data?.saleOrderDelivery.destinationLatitude" [zoom]="15" [longitude]="data?.saleOrderDelivery.destinationLongitude" (mapReady)="onMapReady($event)">
+                <agm-marker [latitude]="data?.saleOrderDelivery.destinationLatitude" [longitude]="data?.saleOrderDelivery.destinationLongitude"></agm-marker>
+              </agm-map>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

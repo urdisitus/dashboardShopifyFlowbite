@@ -1,0 +1,136 @@
+<div class="container-fluid">
+
+  <div class="row">
+    <div class="col-md-12">
+      <span><b style="font-size: 30px;">Pago con Seguro</b></span>
+    </div>
+
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-block">
+          <div class="table-responsive">
+            <hr />
+            <mat-form-field>
+              <mat-label>Fecha inicio</mat-label>
+              <input matInput [matDatepicker]="picker" placeholder="Selecciona una fecha" required [(ngModel)]="fechaInicial" (dateChange)="changeDate($event)">
+              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+              <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+            &nbsp;&nbsp;
+            <mat-form-field>
+              <mat-label>Fecha fin</mat-label>
+              <input matInput [matDatepicker]="picker2" placeholder="Selecciona una fecha" required [(ngModel)]="fechaFinal" (dateChange)="changeDate($event)">
+              <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+              <mat-datepicker #picker2></mat-datepicker>
+            </mat-form-field>
+            &nbsp;&nbsp;
+            <mat-form-field>
+              <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Ingrese el nro. secuencia">
+            </mat-form-field>
+
+            <div class="pull-right">
+              <button class="btn btn-success" *ngIf="fechaInicial !== undefined && fechaFinal!== undefined" mat-button (click)="actualizarData();"> Actualizar </button>
+            </div>
+
+            <table mat-table [dataSource]="dataSource" matSort style="width:100%">
+
+              <ng-container matColumnDef="fecha">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>FECHA</th>
+                <td mat-cell *matCellDef="let element"> {{element.fecha | date: 'dd/MM/yyyy'}} </td>
+              </ng-container>
+              <ng-container matColumnDef="opcion">
+                <th mat-header-cell *matHeaderCellDef>OPCIONES</th>
+                <td mat-cell *matCellDef="let element">
+                  <button mat-button [matMenuTriggerFor]="menu">...</button>
+                  <mat-menu #menu="matMenu">
+                    <button mat-menu-item (click)="showForm(contentSeguro, element)">Subir receta</button>
+                    <button *ngIf="element.urlReceta" mat-menu-item (click)="showDocument(contentDocumento, element)">Ver receta</button>
+                  </mat-menu>
+
+                </td>
+              </ng-container>
+              <ng-container matColumnDef="urlreceta">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> RECETA DIGITAL </th>
+                <td mat-cell *matCellDef="let element">
+                  <span *ngIf="element.urlReceta">Si</span>
+                  <span *ngIf="!element.urlReceta">No</span>
+                </td>
+              </ng-container>
+              <ng-container matColumnDef="codigoUnico">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>NRO. SECUENCIA</th>
+                <td mat-cell *matCellDef="let element">{{element.codigoUnico}}</td>
+              </ng-container>
+              <ng-container matColumnDef="vendedor">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> CAJERO </th>
+                <td mat-cell *matCellDef="let element"> {{element.codVendedor}}<br />{{element.vendedor}}</td>
+              </ng-container>
+              <ng-container matColumnDef="cliente">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> CLIENTE<br />ASEGURADORA</th>
+                <td mat-cell *matCellDef="let element"> {{element.cliente}}<br />{{element.aseguradora}}</td>
+              </ng-container>
+              <ng-container matColumnDef="montoCobertura">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> TOTAL FACTURA <br />MONTO COBERTURA </th>
+                <td mat-cell *matCellDef="let element"> {{element.montoGeneral}}<br />{{element.montoCobertura}}</td>
+              </ng-container>
+              <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumns;" class="element-row"></tr>
+            </table>
+            <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #contentSeguro let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Cargar receta</h4>
+    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <form [formGroup]="formSeguro" (ngSubmit)="guardarReceta()">
+    <div class="modal-body">
+
+      <div class="form-row">
+        <div class="form-group col-md-12">
+          <label for="factura">Nro. Factura</label>
+          <div class="input-group">
+            <input class="form-control" id="factura" readonly name="factura" value="{{currentElement.nroFactura}}">
+          </div>
+        </div>
+        <div class="form-group col-md-12">
+          <label for="crsFile">Receta</label>
+          <div class="input-group">
+            <input type="file" class="form-control" formControlName="File" accept=".pdf, .png, .jpeg" (change)="onFileChange($event, 'File')">
+          </div>
+          <div *ngIf="formSeguro.controls['File'].errors?.required && formSeguro.controls['File'].touched" class="form-control-feedback">
+            El campo es requerido.
+          </div>
+
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-dark" (click)="c('Close click')">Cancelar</button>
+        <button type="submit" class="btn btn-primary pull-right" [disabled]="formSeguro.invalid"> Registrar</button>
+      </div>
+    </div>
+  </form>
+</ng-template>
+
+<ng-template #contentDocumento let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Documento</h4>
+    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <iframe [src]="currentElement.urlReceta | safe" width="100%" height="700px"></iframe>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="c('Close click')">Aceptar</button>
+  </div>
+</ng-template>

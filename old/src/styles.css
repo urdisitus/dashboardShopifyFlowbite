@@ -1,0 +1,21 @@
+/* You can add global styles to this file, and also import other style files */
+
+/*.cdk-global-overlay-wrapper, .cdk-overlay-container {
+  z-index: 99999 !important;
+}
+
+.cdk-overlay-connected-position-bounding-box {
+  z-index: 99999 !important;
+}*/
+
+::ng-deep .cdk-overlay-container {
+  z-index: 99999 !important;
+}
+
+.mat-select-panel {
+  z-index: 9999 !important;
+}
+.cdk-global-overlay-wrapper, .cdk-overlay-container {
+  z-index: 99999 !important;
+}
+

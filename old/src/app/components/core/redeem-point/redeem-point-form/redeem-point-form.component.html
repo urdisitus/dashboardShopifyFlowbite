@@ -1,0 +1,107 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <h2 class="title">Configuración de pago con puntos</h2>
+    </div>
+  </div>
+  <form [formGroup]="form" class="example-form" (ngSubmit)="store()">
+    <div class="row">
+      <div class="col-md-4">
+        <mat-form-field class="example-full-width">
+          <mat-label>Nombre</mat-label>
+          <input matInput id="name" name="name" formControlName="name" maxlength="100" required>
+          <mat-error *ngIf="name.hasError('required')">
+            El nombre es <strong>requerido</strong>
+          </mat-error>
+          <mat-error *ngIf="name.hasError('maxlength')">
+            El nombre no debe tener más de <strong>100 caracteres</strong>
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div class="col-md-4">
+        <mat-form-field class="example-full-width">
+          <mat-label>Grupo</mat-label>
+          <mat-select id="redeemPointGroupId" name="redeemPointGroupId" formControlName="redeemPointGroupId">
+            <mat-option *ngFor="let type of groups" [value]="type.id">
+              {{type.name}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div class="col-md-4">
+        <mat-form-field class="example-full-width">
+          <mat-label>Tipo</mat-label>
+          <mat-select id="redeemPointTypeId" name="redeemPointTypeId" formControlName="redeemPointTypeId">
+            <mat-option *ngFor="let type of types" [value]="type.id">
+              {{type.name}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div class="col-md-3">
+        <mat-form-field class="example-full-width">
+          <mat-label>Factor</mat-label>
+          <input matInput id="factor" name="factor" formControlName="factor" numeric decimals="0" min="0" required>
+          <mat-error *ngIf="name.hasError('required')">
+            El factor es <strong>requerido</strong>
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div class="col-md-3">
+        <mat-form-field class="example-full-width">
+          <mat-label>Valor</mat-label>
+          <input matInput id="value" name="value" formControlName="value" numeric decimals="0" min="0" required>
+          <mat-error *ngIf="name.hasError('required')">
+            El valor es <strong>requerido</strong>
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div class="col-md-3">
+        <mat-form-field class="example-full-width">
+          <mat-label>Valor mínimo</mat-label>
+          <input matInput id="minimalAmonunt" name="minimalAmonunt" formControlName="minimalAmonunt" numeric decimals="0" min="0" required>
+          <mat-error *ngIf="name.hasError('required')">
+            El valor mínimo es <strong>requerido</strong>
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div class="col-md-3">
+        <mat-form-field class="example-full-width">
+          <mat-label>Fecha Inicio</mat-label>
+          <input matInput [matDatepicker]="startPicker" placeholder="Selecciona una fecha inicial" id="startDate"
+            name="startDate" formControlName="startDate">
+          <mat-datepicker-toggle matSuffix [for]="startPicker"></mat-datepicker-toggle>
+          <mat-datepicker #startPicker></mat-datepicker>
+        </mat-form-field>
+      </div>
+      <div class="col-md-3">
+        <mat-form-field class="example-full-width">
+          <mat-label>Fecha Fin</mat-label>
+          <input matInput [matDatepicker]="endPicker" placeholder="Selecciona una fecha final" id="endDate"
+            name="endDate" formControlName="endDate">
+          <mat-datepicker-toggle matSuffix [for]="endPicker"></mat-datepicker-toggle>
+          <mat-datepicker #endPicker></mat-datepicker>
+        </mat-form-field>
+      </div>      
+      <div class="col-md-12">
+        <mat-form-field class="example-full-width">
+          <mat-label>Descripción</mat-label>
+          <textarea matInput id="descript" name="descript" formControlName="descript" maxlength="400"></textarea>
+          <mat-error *ngIf="descript.hasError('maxlength')">
+            La descripción no debe tener más de <strong>400 caracteres</strong>
+          </mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <button mat-raised-button type="button" (click)="close()" aria-label="Cancelar">
+          Cancelar
+        </button>
+        <button mat-raised-button color="primary" style="margin-left: 10px;" type="submit" aria-label="Guardar">
+          <mat-icon>save</mat-icon> Guardar
+        </button>
+      </div>
+    </div>
+  </form>
+</div>
